@@ -1,0 +1,143 @@
+from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy.orm import Session
+from typing import List, Optional, Dict, Any
+from datetime import datetime
+
+from app.database import get_db
+from app.models.auth_models import User
+from app.models.game_models import UserActivity
+from app.models.shop_models import Reward
+from app.schemas.admin import (
+    UserAdminResponse,
+    ActivityResponse,
+    UserDetailResponse,
+    GiveRewardRequest,
+    RewardResponse
+)
+
+# JWT 인증 의존성 임포트
+from app.auth.auth_service import AuthService
+
+router = APIRouter(
+    prefix="/admin",
+    tags=["admin"],
+    responses={404: {"description": "Not found"}},
+)
+
+async def require_admin_user(db: Session = Depends(get_db)) -> User:
+    """관리자 권한 필요"""
+    # AuthService를 통해 현재 사용자 정보 가져오기
+    current_user = AuthService.get_current_user_dependency(db=db)
+    
+    # 관리자 권한 체크 (rank가 ADMIN이거나 nickname이 admin인 경우)
+    if not current_user or (current_user.rank != "ADMIN" and not current_user.nickname.lower().startswith("admin")):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="관리자 권한이 필요합니다"
+        )
+    
+    return current_user
+    user = db.query(models.User).filter(models.User.is_admin == True).first()
+    if not user:
+        raise HTTPException(status_code=403, detail="관리자 권한이 필요합니다")
+    return user
+
+from app.services.admin_service import AdminService
+from app.services.reward_service import RewardService
+
+def get_admin_service(db: Session = Depends(get_db)) -> AdminService:
+    return AdminService(db)
+
+def get_reward_service(db: Session = Depends(get_db)) -> RewardService:
+    return RewardService(db)
+
+@router.get("/users", response_model=List[UserAdminResponse])
+def list_users(
+    skip: int = 0,
+    limit: int = 100,
+    search: Optional[str] = None,
+    admin_service: AdminService = Depends(get_admin_service),
+    current_user: models.User = Depends(require_admin_user)
+):
+    """
+    Get a list of all users with basic information for admin dashboard
+    """
+    users = admin_service.list_users(skip=skip, limit=limit, search=search)
+    return users
+
+@router.get("/users/{user_id}", response_model=UserDetailResponse)
+def get_user_detail(
+    user_id: int, 
+    admin_service: AdminService = Depends(get_admin_service),
+    current_user: models.User = Depends(require_admin_user)
+):
+    """
+    Get detailed information about a specific user
+    """
+    user = admin_service.get_user_details(user_id)
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    activities = admin_service.get_user_activities(user_id)
+    rewards = admin_service.get_user_rewards(user_id)
+    
+    return UserDetailResponse(
+        id=user.id,
+        site_id=user.site_id,
+        nickname=user.nickname,
+        phone_number=user.phone_number,
+        # rank=user.rank, # Rank is not in the User model, will be handled by segmentation
+        cyber_token_balance=user.cyber_token_balance,
+        created_at=user.created_at,
+        activities=[ActivityResponse(
+            id=activity.id,
+            activity_type=activity.action_type,
+            timestamp=activity.created_at,
+            details=activity.action_data
+        ) for activity in activities],
+        rewards=[RewardResponse(
+            id=reward.id,
+            reward_type=reward.reward_type,
+            amount=int(reward.reward_value), # Assuming reward_value is a string number
+            reason=reward.source_description,
+            created_at=reward.awarded_at
+        ) for reward in rewards]
+    )
+
+@router.get("/activities", response_model=List[ActivityResponse])
+def list_activities(
+    skip: int = 0,
+    limit: int = 100,
+    admin_service: AdminService = Depends(get_admin_service),
+    current_user: models.User = Depends(require_admin_user)
+):
+    """
+    Get a list of recent user activities
+    """
+    activities = admin_service.list_all_activities(skip=skip, limit=limit)
+    return activities
+
+@router.post("/users/{user_id}/reward", response_model=RewardResponse)
+def give_reward(
+    user_id: int,
+    reward_request: GiveRewardRequest,
+    admin_service: AdminService = Depends(get_admin_service),
+    reward_service: RewardService = Depends(get_reward_service),
+    current_user: models.User = Depends(require_admin_user)
+):
+    """
+    Give a reward to a specific user
+    """
+    # Check if user exists
+    user = admin_service.get_user_details(user_id)
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    reward = reward_service.distribute_reward(
+        user_id=user_id,
+        reward_type=reward_request.reward_type,
+        amount=reward_request.amount,
+        source_description=f"Admin Grant: {reward_request.reason}"
+    )
+    
+    return reward

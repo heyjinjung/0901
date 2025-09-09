@@ -1,0 +1,234 @@
+services:
+  backend:
+    build:
+      context: ./cc-webapp/backend
+      dockerfile: Dockerfile
+    container_name: cc_backend
+    environment:
+      PYTHONPATH: /app
+      ENVIRONMENT: "${ENVIRONMENT:-development}"
+      POSTGRES_SERVER: postgres
+      POSTGRES_USER: cc_user
+      POSTGRES_PASSWORD: cc_password
+      POSTGRES_DB: cc_webapp
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: redis_password
+      JWT_SECRET_KEY: secret_key_for_development_only
+      PAYMENT_WEBHOOK_SECRET: dev-webhook-secret
+      KAFKA_ENABLED: ${KAFKA_ENABLED:-0}
+      KAFKA_BOOTSTRAP_SERVERS: ${KAFKA_BOOTSTRAP_SERVERS:-kafka:9092}
+      CLICKHOUSE_ENABLED: ${CLICKHOUSE_ENABLED:-0}
+      CLICKHOUSE_URL: ${CLICKHOUSE_URL:-http://clickhouse:8123}
+      CLICKHOUSE_DATABASE: ${CLICKHOUSE_DATABASE:-cc_olap}
+      CLICKHOUSE_USER: ${CLICKHOUSE_USER:-default}
+      CLICKHOUSE_PASSWORD: ${CLICKHOUSE_PASSWORD:-}
+      OLAP_BATCH_SIZE: ${OLAP_BATCH_SIZE:-200}
+      OLAP_FLUSH_SECONDS: ${OLAP_FLUSH_SECONDS:-2}
+      CORS_ORIGINS: "http://localhost:3000,http://127.0.0.1:3000,https://localhost:3000,https://127.0.0.1:3000,http://localhost:40001,http://127.0.0.1:40001,http://frontend:3000"
+      AUTO_SEED_BASIC: "1"
+    volumes:
+      - ./cc-webapp/backend:/app
+      - ./logs/backend:/app/logs:rw
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"
+    depends_on:
+      - postgres
+      - redis
+      - kafka
+    entrypoint: ["/bin/sh", "-c", "chmod +x /app/entrypoint.sh; sed -i 's/\\r$//' /app/entrypoint.sh; /bin/sh /app/entrypoint.sh"]
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    networks:
+      ccnet:
+        aliases:
+          - backend
+
+  frontend:
+    build:
+      context: ./cc-webapp/frontend
+      dockerfile: Dockerfile.dev
+    container_name: cc_frontend
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+        reservations:
+          memory: 2G
+    environment:
+      NEXT_PUBLIC_API_URL: "${NEXT_PUBLIC_API_URL:-http://localhost:8000}"
+      NEXT_PUBLIC_API_ORIGIN: "${NEXT_PUBLIC_API_ORIGIN:-http://localhost:8000}"
+      NEXT_PUBLIC_API_URL_INTERNAL: "${NEXT_PUBLIC_API_URL_INTERNAL:-http://backend:8000}"
+      NEXT_PUBLIC_ALLOW_STUB_USER: "${NEXT_PUBLIC_ALLOW_STUB_USER:-1}"
+      NEXT_DISABLE_WEBPACK_CACHE: "1"
+      NEXT_TELEMETRY_DISABLED: "1"
+      NEXT_PUBLIC_BUILD_ID: "${NEXT_PUBLIC_BUILD_ID:-dev}"
+      NODE_OPTIONS: "--max_old_space_size=4096"
+    volumes:
+      - ./cc-webapp/frontend:/app
+      - ./logs/frontend:/app/logs:rw
+      # Keep node_modules inside container volume to avoid Windows file locking issues
+      - frontend_node_modules:/app/node_modules
+    ports:
+      - "${FRONTEND_PORT:-3000}:3000"
+    depends_on:
+      - backend
+    restart: unless-stopped
+    command: ["/usr/local/bin/start-dev"]
+    healthcheck:
+      test: ["CMD-SHELL", "node -e \"require('http').get('http://localhost:3000/healthz',r=>process.exit(r.statusCode===200?0:1)).on('error',()=>process.exit(1))\""]
+      start_period: 75s
+      interval: 20s
+      timeout: 5s
+      retries: 5
+    networks:
+      ccnet:
+        aliases:
+          - frontend
+
+  postgres:
+    image: postgres:14
+    container_name: cc_postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-cc_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-cc_password}
+      POSTGRES_DB: ${POSTGRES_DB:-cc_webapp}
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data:rw
+      - ./logs/postgres:/var/log/postgresql:rw
+      - ./data/init:/docker-entrypoint-initdb.d:ro
+    ports:
+      - "${POSTGRES_PORT:-15432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-cc_user} -d ${POSTGRES_DB:-cc_webapp}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      ccnet:
+        aliases:
+          - postgres
+
+  redis:
+    image: redis:7
+    container_name: cc_redis
+    command: ["redis-server", "--requirepass", "${REDIS_PASSWORD:-redis_password}"]
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD:-redis_password}", "PING"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      ccnet:
+        aliases:
+          - redis
+
+  zookeeper:
+    image: bitnami/zookeeper:3.8
+    container_name: cc_zookeeper
+    environment:
+      ALLOW_ANONYMOUS_LOGIN: "yes"
+    networks:
+      ccnet:
+        aliases:
+          - zookeeper
+
+  kafka:
+    image: bitnami/kafka:3.6
+    container_name: cc_kafka
+    environment:
+      KAFKA_CFG_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_CFG_LISTENERS: PLAINTEXT://:9092
+      KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE: "true"
+      ALLOW_PLAINTEXT_LISTENER: "yes"
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    networks:
+      ccnet:
+        aliases:
+          - kafka
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "kafka-topics.sh --bootstrap-server localhost:9092 --list >/dev/null 2>&1 || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+
+  clickhouse:
+    image: clickhouse/clickhouse-server:23.8
+    container_name: cc_clickhouse
+    ports:
+      - "8123:8123"
+    environment:
+      CLICKHOUSE_DB: ${CLICKHOUSE_DATABASE:-cc_olap}
+      CLICKHOUSE_USER: ${CLICKHOUSE_USER:-default}
+      CLICKHOUSE_PASSWORD: ${CLICKHOUSE_PASSWORD:-}
+    volumes:
+      - clickhouse_data:/var/lib/clickhouse
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8123/ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+    networks:
+      ccnet:
+        aliases:
+          - clickhouse
+
+  olap_worker:
+    build:
+      context: ./cc-webapp/backend
+      dockerfile: Dockerfile
+    container_name: cc_olap_worker
+    entrypoint: ["python", "-m", "app.consumers.olap_worker"]
+    environment:
+      POSTGRES_SERVER: postgres
+      POSTGRES_USER: cc_user
+      POSTGRES_PASSWORD: cc_password
+      POSTGRES_DB: cc_webapp
+      KAFKA_ENABLED: ${KAFKA_ENABLED:-0}
+      KAFKA_BOOTSTRAP_SERVERS: ${KAFKA_BOOTSTRAP_SERVERS:-kafka:9092}
+      CLICKHOUSE_ENABLED: ${CLICKHOUSE_ENABLED:-0}
+      CLICKHOUSE_URL: ${CLICKHOUSE_URL:-http://clickhouse:8123}
+      CLICKHOUSE_DATABASE: ${CLICKHOUSE_DATABASE:-cc_olap}
+      CLICKHOUSE_USER: ${CLICKHOUSE_USER:-default}
+      CLICKHOUSE_PASSWORD: ${CLICKHOUSE_PASSWORD:-}
+      OLAP_BATCH_SIZE: ${OLAP_BATCH_SIZE:-200}
+      OLAP_FLUSH_SECONDS: ${OLAP_FLUSH_SECONDS:-2}
+    depends_on:
+      - kafka
+      - clickhouse
+      - postgres
+    restart: unless-stopped
+    networks:
+      ccnet:
+        aliases:
+          - olap_worker
+
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: cc_mailpit
+    ports:
+      - "8025:8025"
+      - "1025:1025"
+    restart: unless-stopped
+    networks:
+      ccnet:
+        aliases:
+          - mailpit
+
+networks:
+  ccnet:
+    external: true
+
+volumes:
+  clickhouse_data:
+  frontend_node_modules:

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Casino-Club 풀스택 로그인 테스트</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #000; color: #0ff; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .test-result { margin: 10px 0; padding: 10px; border: 1px solid #0ff; border-radius: 5px; }
+        .success { background: #001100; border-color: #0f0; color: #0f0; }
+        .error { background: #110000; border-color: #f00; color: #f00; }
+        .info { background: #001111; border-color: #0ff; color: #0ff; }
+        button { background: #0ff; color: #000; border: none; padding: 10px 20px; margin: 5px; cursor: pointer; }
+        button:hover { background: #fff; }
+        pre { background: #111; padding: 10px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎰 Casino-Club 풀스택 전역동기화 테스트</h1>
+        <div id="status" class="test-result info">시작 대기 중...</div>
+        <div id="results"></div>
+        
+        <button onclick="testFullStack()">🚀 풀스택 로그인 테스트 시작</button>
+        <button onclick="checkCurrentState()">🔍 현재 상태 확인</button>
+        <button onclick="testGameAPI()">🎮 게임 API 테스트</button>
+        <button onclick="clearStorage()">🗑️ 스토리지 정리</button>
+    </div>
+
+    <script>
+        function log(message, type = 'info') {
+            const div = document.createElement('div');
+            div.className = `test-result ${type}`;
+            div.innerHTML = `<strong>${new Date().toLocaleTimeString()}</strong> - ${message}`;
+            document.getElementById('results').appendChild(div);
+            console.log(message);
+        }
+
+        function updateStatus(message, type = 'info') {
+            const status = document.getElementById('status');
+            status.className = `test-result ${type}`;
+            status.innerHTML = message;
+        }
+
+        async function testFullStack() {
+            updateStatus('🔄 풀스택 로그인 테스트 시작...', 'info');
+            
+            try {
+                // 1. 백엔드 직접 로그인
+                log('1️⃣ 백엔드 API 직접 로그인 시도...');
+                
+                const response = await fetch('http://localhost:8000/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        site_id: 'admin',
+                        password: '123456'
+                    })
+                });
+                
+                log(`응답 상태: ${response.status}`);
+                
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    log(`❌ 로그인 실패: ${errorText}`, 'error');
+                    updateStatus('❌ 백엔드 로그인 실패', 'error');
+                    return;
+                }
+                
+                const loginData = await response.json();
+                log(`✅ 백엔드 로그인 성공!`, 'success');
+                log(`사용자 정보: ${JSON.stringify(loginData.user, null, 2)}`);
+                log(`Gold Balance: ${loginData.user.gold_balance}`);
+                
+                // 2. 토큰 저장
+                log('2️⃣ 토큰 저장...');
+                const tokens = {
+                    access_token: loginData.access_token,
+                    refresh_token: loginData.refresh_token || loginData.access_token
+                };
+                
+                localStorage.setItem('cc_auth_tokens', JSON.stringify(tokens));
+                log('✅ 토큰 localStorage에 저장 완료', 'success');
+                
+                // 3. 프로필 API 테스트
+                log('3️⃣ 인증된 프로필 API 호출 테스트...');
+                const profileResponse = await fetch('http://localhost:8000/api/auth/me', {
+                    headers: {
+                        'Authorization': `Bearer ${loginData.access_token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (profileResponse.ok) {
+                    const profileData = await profileResponse.json();
+                    log(`✅ 프로필 API 성공: ${JSON.stringify(profileData, null, 2)}`, 'success');
+                } else {
+                    log(`❌ 프로필 API 실패: ${profileResponse.status}`, 'error');
+                }
+                
+                // 4. 잔액 API 테스트
+                log('4️⃣ 잔액 API 테스트...');
+                const balanceResponse = await fetch('http://localhost:8000/api/users/balance', {
+                    headers: {
+                        'Authorization': `Bearer ${loginData.access_token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (balanceResponse.ok) {
+                    const balanceData = await balanceResponse.json();
+                    log(`✅ 잔액 API 성공: ${JSON.stringify(balanceData, null, 2)}`, 'success');
+                } else {
+                    log(`❌ 잔액 API 실패: ${balanceResponse.status}`, 'error');
+                }
+                
+                updateStatus('🎉 풀스택 테스트 완료! 새로고침하여 프론트엔드 동기화 확인', 'success');
+                
+                // 5. 자동 새로고침 옵션
+                setTimeout(() => {
+                    if (confirm('프론트엔드 전역동기화 확인을 위해 페이지를 새로고침하시겠습니까?')) {
+                        window.location.reload();
+                    }
+                }, 2000);
+                
+            } catch (error) {
+                log(`💥 오류 발생: ${error.message}`, 'error');
+                updateStatus('💥 테스트 실패', 'error');
+            }
+        }
+
+        async function checkCurrentState() {
+            log('🔍 현재 인증 상태 확인...');
+            
+            const tokens = localStorage.getItem('cc_auth_tokens');
+            if (tokens) {
+                const parsed = JSON.parse(tokens);
+                log(`✅ 저장된 토큰 존재: ${JSON.stringify(parsed, null, 2)}`, 'success');
+                
+                // 토큰으로 프로필 확인
+                try {
+                    const response = await fetch('http://localhost:8000/api/auth/me', {
+                        headers: {
+                            'Authorization': `Bearer ${parsed.access_token}`,
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        const data = await response.json();
+                        log(`✅ 현재 로그인 상태: ${JSON.stringify(data, null, 2)}`, 'success');
+                    } else {
+                        log(`❌ 토큰 유효하지 않음: ${response.status}`, 'error');
+                    }
+                } catch (e) {
+                    log(`❌ 토큰 검증 오류: ${e.message}`, 'error');
+                }
+            } else {
+                log('❌ 저장된 토큰 없음', 'error');
+            }
+        }
+
+        async function testGameAPI() {
+            log('🎮 게임 API 테스트...');
+            
+            const tokens = localStorage.getItem('cc_auth_tokens');
+            if (!tokens) {
+                log('❌ 토큰이 없습니다. 먼저 로그인하세요.', 'error');
+                return;
+            }
+            
+            const parsed = JSON.parse(tokens);
+            
+            try {
+                // 슬롯 게임 API 테스트
+                const response = await fetch('http://localhost:8000/api/games/slots/spin', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${parsed.access_token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        bet_amount: 10
+                    })
+                });
+                
+                if (response.ok) {
+                    const gameResult = await response.json();
+                    log(`🎰 슬롯 게임 결과: ${JSON.stringify(gameResult, null, 2)}`, 'success');
+                } else {
+                    log(`❌ 게임 API 실패: ${response.status}`, 'error');
+                }
+            } catch (e) {
+                log(`❌ 게임 API 오류: ${e.message}`, 'error');
+            }
+        }
+
+        function clearStorage() {
+            localStorage.removeItem('cc_auth_tokens');
+            sessionStorage.clear();
+            log('🗑️ 스토리지 정리 완료', 'info');
+            updateStatus('스토리지 정리됨', 'info');
+        }
+
+        // 페이지 로드 시 자동 상태 확인
+        window.onload = function() {
+            updateStatus('준비 완료 - 테스트 버튼을 클릭하세요', 'info');
+            checkCurrentState();
+        };
+    </script>
+</body>
+</html>

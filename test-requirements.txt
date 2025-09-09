@@ -1,0 +1,7 @@
+# API 연동 테스트용 Python 패키지들
+pytest==7.4.0
+requests==2.31.0
+pytest-html==3.2.0
+pytest-json-report==1.5.0
+pytest-cov==4.1.0
+allure-pytest==2.13.2

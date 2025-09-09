@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "site_id": "testuser123",
+    "nickname": "\ud14c\uc2a4\ud2b8\uc720\uc800",
+    "phone_number": "010-1234-5678",
+    "password_hash": "$2b$12$hbVJP0KCJkaKE7sndw7GP.BKz5GXXp9IYPlB3TzvwrhXbfQaoBZMS",
+    "invite_code": "7E1THZ",
+    "cyber_token_balance": 200,
+    "created_at": "2025-07-26T01:53:17.466061",
+    "rank": "STANDARD"
+  },
+  {
+    "id": 2,
+    "site_id": "user1753495060776gjzl",
+    "nickname": "\ud14c\uc2a4\ud2b8\uc720\uc800_1753495060",
+    "phone_number": "010-1098-2063",
+    "password_hash": "$2b$12$PSnlA2Fc9JIgZsOL.GbqsOq.tHqwXpkTx3H7GwGvOJpOn4e3buo7C",
+    "invite_code": "110LS0",
+    "cyber_token_balance": 200,
+    "created_at": "2025-07-26T01:57:41.033567",
+    "rank": "STANDARD"
+  }
+]

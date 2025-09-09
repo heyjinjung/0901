@@ -1,0 +1,50 @@
+name: OpenAPI Drift Guard
+
+on:
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch: {}
+
+jobs:
+  check-openapi-drift:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set API_BASE_URL from repo variable
+        run: echo "API_BASE_URL=${{ vars.OPENAPI_BASE_URL }}" >> $GITHUB_ENV
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+      - name: Validate inputs
+        run: |
+          if [ -z "$API_BASE_URL" ]; then
+            echo "API_BASE_URL not set in repo secrets; skipping drift check.";
+            echo "skip" > ../.openapi-drift-skip
+          fi
+      - name: Fetch live OpenAPI (if configured)
+        if: ${{ !hashFiles('.openapi-drift-skip') }}
+        run: |
+          set -e
+          curl -fsSL "$API_BASE_URL/api/openapi.json" -o temp_openapi_live.json
+      - name: Normalize specs (stable sort keys)
+        if: ${{ !hashFiles('.openapi-drift-skip') }}
+        run: |
+          set -e
+          # Normalize both committed spec and live spec to minimize noise
+          cat openapi_spec.json | jq -S '.' > openapi_spec.normalized.json
+          cat temp_openapi_live.json | jq -S '.' > temp_openapi_live.normalized.json
+      - name: Diff specs
+        if: ${{ !hashFiles('.openapi-drift-skip') }}
+        run: |
+          set -e
+          diff -u openapi_spec.normalized.json temp_openapi_live.normalized.json || {
+            echo "OpenAPI drift detected. Please update frontend/openapi_spec.json or backend schema.";
+            exit 1;
+          }
+          echo "No drift detected."

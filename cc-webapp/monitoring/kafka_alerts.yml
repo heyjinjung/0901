@@ -1,0 +1,25 @@
+# Kafka Consumer Lag and Health Alerts
+# Generated as static for now; thresholds can be templated later if needed.
+
+groups:
+  - name: kafka_consumer_health
+    rules:
+      - alert: KafkaHighConsumerLag
+        expr: sum(kafka_consumergroup_lag) by (consumergroup) > 1000
+        for: 5m
+        labels:
+          severity: warning
+          service: kafka
+        annotations:
+          summary: "High Kafka consumer lag detected"
+          description: "Consumer group {{ $labels.consumergroup }} has lag {{ $value }} (>1000) for over 5m."
+
+      - alert: KafkaExporterDown
+        expr: up{job="kafka-exporter"} == 0
+        for: 2m
+        labels:
+          severity: critical
+          service: kafka
+        annotations:
+          summary: "Kafka Exporter is down"
+          description: "kafka-exporter target is not up for more than 2 minutes."

@@ -1,0 +1,39 @@
+version: 1
+tasks:
+  setup:
+    script: |
+      # Install any additional dependencies
+      pip install -r cc-webapp/backend/requirements.txt
+      
+      # Build Docker containers
+      docker-compose build
+      
+      # Start services
+      docker-compose up -d
+      
+      # Wait for services to be ready
+      sleep 10
+      
+      # Verify services are running
+      docker-compose ps
+      
+  test:
+    script: |
+      # Run backend tests
+      cd cc-webapp/backend
+      pytest
+      
+      # Run frontend tests
+      cd ../frontend
+      npm test
+      
+  lint:
+    script: |
+      # Backend linting
+      cd cc-webapp/backend
+      black . --check
+      ruff check .
+      
+      # Frontend linting
+      cd ../frontend
+      npm run lint

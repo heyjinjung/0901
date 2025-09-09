@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "code": "7E1THZ",
+    "is_used": true,
+    "created_at": "2025-07-26T01:53:17.192213"
+  },
+  {
+    "id": 2,
+    "code": "03T0MZ",
+    "is_used": false,
+    "created_at": "2025-07-26T01:53:17.938773"
+  },
+  {
+    "id": 3,
+    "code": "DME0TU",
+    "is_used": false,
+    "created_at": "2025-07-26T01:55:58.592010"
+  },
+  {
+    "id": 4,
+    "code": "KF2DEY",
+    "is_used": false,
+    "created_at": "2025-07-26T01:55:59.099992"
+  },
+  {
+    "id": 5,
+    "code": "110LS0",
+    "is_used": true,
+    "created_at": "2025-07-26T01:57:40.767555"
+  },
+  {
+    "id": 6,
+    "code": "5882",
+    "is_used": false,
+    "created_at": "2025-07-26T02:04:02.095258"
+  },
+  {
+    "id": 7,
+    "code": "6969",
+    "is_used": false,
+    "created_at": "2025-07-26T02:04:02.095262"
+  },
+  {
+    "id": 8,
+    "code": "6974",
+    "is_used": false,
+    "created_at": "2025-07-26T02:04:02.095263"
+  }
+]

@@ -1,0 +1,21 @@
+services:
+  backend:
+    environment:
+      KAFKA_ENABLED: "1"
+      KAFKA_BOOTSTRAP_SERVERS: "kafka:9092"
+      CLICKHOUSE_ENABLED: "1"
+      ENABLE_LEGACY_GAMES_WS: "0"
+      CLICKHOUSE_URL: "http://clickhouse:8123"
+      CLICKHOUSE_DATABASE: "cc_olap"
+      CLICKHOUSE_USER: "default"
+  olap_worker:
+    environment:
+      KAFKA_ENABLED: "1"
+      KAFKA_BOOTSTRAP_SERVERS: "kafka:9092"
+      CLICKHOUSE_ENABLED: "1"
+      CLICKHOUSE_URL: "http://clickhouse:8123"
+      CLICKHOUSE_DATABASE: "cc_olap"
+      CLICKHOUSE_USER: "default"
+  frontend:
+    environment:
+      NODE_OPTIONS: "--max-old-space-size=4096"

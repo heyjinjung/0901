@@ -1,0 +1,366 @@
+{
+  "__inputs": [],
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "7.0.0"
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    }
+  ],
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+            "type": "grafana",
+            "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "type": "stat",
+      "title": "Purchase Success %",
+      "gridPos": {"h": 4, "w": 8, "x": 0, "y": 0},
+      "datasource": { "type": "prometheus", "uid": null },
+      "options": {"reduceOptions": {"calcs": ["lastNotNull"], "fields": ""}, "orientation": "auto", "textMode": "auto"},
+      "targets": [
+        {"expr": "(sum(rate(purchase_attempt_total{result=\"success\"}[5m])) / sum(rate(purchase_attempt_total[5m]))) * 100", "legendFormat": ""}
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "min": 0,
+          "max": 100,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {"color": "red", "value": null},
+              {"color": "orange", "value": 95},
+              {"color": "green", "value": 98}
+            ]
+          }
+        },
+        "overrides": []
+      }
+    },
+  {
+      "datasource": {
+          "type": "prometheus",
+          "uid": null
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" },
+          "custom": {
+            "axisLabel": "", "axisPlacement": "auto", "barAlignment": 0,
+            "drawStyle": "line", "fillOpacity": 10, "gradientMode": "opacity",
+            "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+            "lineInterpolation": "smooth", "lineWidth": 2, "pointSize": 5,
+            "scaleDistribution": { "type": "linear" }, "showPoints": "auto",
+            "spanNulls": false, "stacking": { "group": "A", "mode": "none" },
+            "thresholdsStyle": { "mode": "off" }
+          },
+          "mappings": [],
+          "thresholds": { "mode": "absolute", "steps": [{ "color": "green", "value": null }, { "color": "red", "value": 80 }] },
+          "unit": "reqps"
+        },
+        "overrides": []
+      },
+  "gridPos": { "h": 7, "w": 12, "x": 0, "y": 4 },
+      "id": 2,
+      "options": {
+        "legend": { "displayMode": "list", "placement": "bottom", "showLegend": true },
+        "tooltip": { "mode": "multi", "sort": "none" }
+      },
+      "targets": [
+        {
+          "exemplar": false,
+          "expr": "sum(rate(http_requests_total{job=\"cc-webapp-backend\"}[2m])) by (handler, method)",
+          "interval": "",
+          "legendFormat": "{{method}} {{handler}}",
+          "refId": "A"
+        }
+      ],
+  "title": "HTTP Request Rate (RPS)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": null },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" },
+          "custom": { "axisPlacement": "right", "drawStyle": "line", "fillOpacity": 15, "gradientMode": "opacity", "lineInterpolation": "smooth", "lineWidth": 2, "pointSize": 5 },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+  "gridPos": { "h": 7, "w": 12, "x": 12, "y": 4 },
+      "id": 4,
+      "options": {
+        "legend": { "displayMode": "list", "placement": "bottom", "showLegend": true },
+        "tooltip": { "mode": "multi", "sort": "none" }
+      },
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, sum(rate(http_requests_duration_seconds_bucket{job=\"cc-webapp-backend\"}[2m])) by (le, handler, method))",
+          "legendFormat": "P95 Latency {{method}} {{handler}}",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(rate(http_requests_duration_seconds_sum{job=\"cc-webapp-backend\"}[2m])) by (handler, method) / sum(rate(http_requests_duration_seconds_count{job=\"cc-webapp-backend\"}[2m])) by (handler, method)",
+          "legendFormat": "Avg Latency {{method}} {{handler}}",
+          "refId": "B"
+        }
+      ],
+      "title": "HTTP Request Latency (P95 & Avg)",
+      "type": "timeseries"
+    },
+    {
+      "type": "timeseries",
+      "title": "Purchases by Result",
+      "gridPos": {"h": 7, "w": 12, "x": 0, "y": 11},
+      "targets": [
+        {"expr": "sum by (result) (rate(purchase_attempt_total[5m]))", "legendFormat": "{{result}}"}
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Purchase Failures by Reason",
+      "gridPos": {"h": 7, "w": 12, "x": 12, "y": 11},
+      "targets": [
+            {"expr": "sum by (reason) (rate(purchase_attempt_total{result=\"fail\"}[5m]))", "legendFormat": "{{reason}}"}
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Pending Ratio %",
+      "gridPos": {"h": 7, "w": 12, "x": 0, "y": 18},
+      "targets": [
+            {"expr": "(sum(rate(purchase_attempt_total{result=\"pending\"}[5m])) / sum(rate(purchase_attempt_total[5m]))) * 100", "legendFormat": "pending %"}
+      ],
+      "fieldConfig": {"defaults": {"unit": "percent", "min": 0, "max": 100}, "overrides": []}
+    },
+    {
+      "type": "timeseries",
+      "title": "WS Active Users",
+      "gridPos": {"h": 7, "w": 12, "x": 12, "y": 18},
+      "targets": [
+        {"expr": "realtime_active_users", "legendFormat": "active_users"}
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "WS Events Rate",
+      "gridPos": {"h": 7, "w": 24, "x": 0, "y": 25},
+      "targets": [
+        {"expr": "rate(realtime_events_total[5m])", "legendFormat": "events/s"}
+      ]
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": null },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" },
+          "custom": { "drawStyle": "line", "fillOpacity": 25, "gradientMode": "opacity", "lineInterpolation": "smooth", "lineWidth": 2 },
+          "unit": "percent", "max": 100, "min": 0
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 7, "w": 24, "x": 0, "y": 7 },
+      "id": 6,
+      "options": {
+        "legend": { "displayMode": "list", "placement": "bottom", "showLegend": true },
+        "tooltip": { "mode": "multi", "sort": "none" }
+      },
+      "targets": [
+        {
+          "expr": "sum(rate(http_requests_total{job=\"cc-webapp-backend\",status=~\"5..\"}[2m])) by (handler) / sum(rate(http_requests_total{job=\"cc-webapp-backend\"}[2m])) by (handler) * 100",
+          "legendFormat": "5xx Error Rate {{handler}}",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(rate(http_requests_total{job=\"cc-webapp-backend\",status=~\"4..\"}[2m])) by (handler) / sum(rate(http_requests_total{job=\"cc-webapp-backend\"}[2m])) by (handler) * 100",
+          "legendFormat": "4xx Error Rate {{handler}}",
+          "refId": "B"
+        }
+      ],
+      "title": "HTTP Error Rate (4xx & 5xx %)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": null },
+      "fieldConfig": {
+        "defaults": {
+            "color": {"mode": "continuous-RdYlGr"}, "custom": {"lineWidth": 2, "fillOpacity": 30}, "unit": "none"
+        }, "overrides": []
+      },
+      "gridPos": {"h": 7, "w": 12, "x": 0, "y": 14}, "id": 8,
+      "options": {"legend": {"displayMode": "list", "placement": "bottom"}, "tooltip": {"mode": "single"}},
+      "targets": [
+        {"expr": "sum(http_requests_inprogress{job=\"cc-webapp-backend\"}) by (handler)", "legendFormat": "{{handler}}", "refId": "A"}
+      ],
+      "title": "In-Progress HTTP Requests", "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": null },
+      "fieldConfig": {
+        "defaults": {"color": {"mode": "palette-classic"}, "custom": {"lineWidth": 1, "fillOpacity": 0, "gradientMode": "none"}, "unit": "short"},
+        "overrides": []
+      },
+      "gridPos": {"h": 7, "w": 12, "x": 12, "y": 14}, "id": 10,
+      "options": {"legend": {"displayMode": "list", "placement": "bottom"}, "tooltip": {"mode": "single"}},
+      "targets": [
+        {"expr": "sum(increase(http_requests_total{job=\"cc-webapp-backend\"}[1h])) by (status)", "legendFormat": "{{status}}", "refId": "A"}
+      ],
+      "title": "Total Requests by Status Code (Last 1hr)", "type": "barchart"
+    }
+    ,
+    {
+      "datasource": { "type": "prometheus", "uid": null },
+      "fieldConfig": {
+        "defaults": { "unit": "percent", "min": 0, "max": 100 },
+        "overrides": []
+      },
+      "gridPos": { "h": 7, "w": 12, "x": 0, "y": 21 },
+      "id": 12,
+      "options": {
+        "legend": { "displayMode": "list", "placement": "bottom", "showLegend": true },
+        "tooltip": { "mode": "single" }
+      },
+      "targets": [
+        {
+          "expr": "sum(rate(http_requests_total{job=\"cc-webapp-backend\",handler=\"/api/shop/limited/buy\",status=~\"2..\"}[5m])) / sum(rate(http_requests_total{job=\"cc-webapp-backend\",handler=\"/api/shop/limited/buy\"}[5m])) * 100",
+          "legendFormat": "Limited Buy Conversion %",
+          "refId": "A"
+        }
+      ],
+      "title": "Buy Conversion (Limited)",
+      "type": "timeseries"
+    }
+    ,
+    {
+      "datasource": { "type": "prometheus", "uid": null },
+      "fieldConfig": {
+        "defaults": { "unit": "percent", "min": 0, "max": 100 },
+        "overrides": []
+      },
+      "gridPos": { "h": 7, "w": 12, "x": 12, "y": 21 },
+      "id": 14,
+      "options": {
+        "legend": { "displayMode": "list", "placement": "bottom", "showLegend": true },
+        "tooltip": { "mode": "single" }
+      },
+      "targets": [
+        {
+          "expr": "(sum(rate(http_requests_total{job=\"cc-webapp-backend\",handler=\"/api/shop/limited/buy\",status=~\"4..|5..\"}[5m])) / sum(rate(http_requests_total{job=\"cc-webapp-backend\",handler=\"/api/shop/limited/buy\"}[5m]))) * 100",
+          "legendFormat": "Limited Buy Error % (4xx/5xx)",
+          "refId": "A"
+        }
+      ],
+      "title": "Buy Error Rate (Limited)",
+      "type": "timeseries"
+    }
+    ,
+    {
+      "datasource": { "type": "prometheus", "uid": null },
+      "fieldConfig": {
+        "defaults": { "color": { "mode": "palette-classic" }, "custom": { "stacking": { "mode": "normal" } }, "unit": "reqps" },
+        "overrides": []
+      },
+      "gridPos": { "h": 7, "w": 12, "x": 0, "y": 28 },
+      "id": 16,
+      "options": {
+        "legend": { "displayMode": "list", "placement": "bottom", "showLegend": true },
+        "tooltip": { "mode": "multi" }
+      },
+      "targets": [
+  { "expr": "sum(rate(http_requests_total{job=\"cc-webapp-backend\",handler=\"/api/shop/limited/buy\"}[5m]))", "legendFormat": "Attempts", "refId": "A" },
+  { "expr": "sum(rate(http_requests_total{job=\"cc-webapp-backend\",handler=\"/api/shop/limited/buy\",status=~\"2..\"}[5m]))", "legendFormat": "Success (2xx)", "refId": "B" }
+      ],
+      "title": "Buy Attempts vs Success (Limited)",
+      "type": "timeseries"
+    }
+    ,
+    {
+      "datasource": { "type": "prometheus", "uid": null },
+      "fieldConfig": {
+        "defaults": { "unit": "percent", "min": 0, "max": 100 },
+        "overrides": []
+      },
+      "gridPos": { "h": 7, "w": 12, "x": 12, "y": 28 },
+      "id": 18,
+      "options": {
+        "legend": { "displayMode": "list", "placement": "bottom", "showLegend": true },
+        "tooltip": { "mode": "single" }
+      },
+      "targets": [
+        {
+          "expr": "sum(rate(http_requests_total{job=\"cc-webapp-backend\",handler=\"/api/shop/buy\",status=~\"2..\"}[5m])) / sum(rate(http_requests_total{job=\"cc-webapp-backend\",handler=\"/api/shop/buy\"}[5m])) * 100",
+          "legendFormat": "Auth Buy Conversion %",
+          "refId": "A"
+        }
+      ],
+      "title": "Buy Conversion (Auth /api/shop/buy)",
+      "type": "timeseries"
+    }
+    ,
+    {
+      "datasource": { "type": "prometheus", "uid": null },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" },
+          "custom": { "drawStyle": "line", "fillOpacity": 20, "lineWidth": 2 },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 7, "w": 24, "x": 0, "y": 35 },
+      "id": 20,
+      "options": {
+        "legend": { "displayMode": "list", "placement": "bottom", "showLegend": true },
+        "tooltip": { "mode": "multi", "sort": "none" }
+      },
+      "targets": [
+        {
+          "expr": "sum(kafka_consumergroup_lag) by (consumergroup, topic)",
+          "legendFormat": "{{consumergroup}} {{topic}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Kafka Consumer Lag (by group/topic)",
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "10s",
+  "schemaVersion": 36,
+  "style": "dark",
+  "tags": ["cc-webapp", "backend", "fastapi", "api"],
+  "templating": { "list": [] },
+  "time": { "from": "now-1h", "to": "now" },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "CC Webapp Backend Overview",
+  "uid": "cc-webapp-backend-auto",
+  "version": 3,
+  "weekStart": ""
+}

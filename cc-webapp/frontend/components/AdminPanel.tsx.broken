@@ -1,0 +1,678 @@
+'use client';
+
+import React, { useState, useEffect } from 'react';
+export function AdminPanel({ user, onBack, onUpdateUser, onAddNotification, coreStats, loadingStats, statsError, navigate }: AdminPanelProps) {
+  const [activeView, setActiveView] = useState(
+    'dashboard' as 'menu' | 'dashboard' | 'users' | 'shop' | 'security' | 'system'
+  );
+  const [searchQuery, setSearchQuery] = useState('');
+  const [realTimeData, setRealTimeData] = useState({
+    lastUpdated: Date.now(),
+    systemHealth: 'healthy' as 'healthy' | 'warning' | 'critical',
+  });
+
+  // 실시간 데이터 업데이트 (5초마다)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRealTimeData(prev => ({
+        ...prev,
+        lastUpdated: Date.now(),
+        systemHealth: coreStats?.critical_alerts && coreStats.critical_alerts > 5 ? 'critical' : 
+                      coreStats?.critical_alerts && coreStats.critical_alerts > 0 ? 'warning' : 'healthy',
+      }));
+    }, 5000);
+    
+    return () => clearInterval(interval);
+  }, [coreStats]);
+
+  // 📊 핵심 통계: 전달된 props 기반 가공
+  const statsView = {
+    totalUsers: coreStats?.total_users ?? 0,
+    activeUsers: coreStats?.active_users ?? 0,
+    onlineUsers: coreStats?.online_users ?? 0,
+    totalRevenue: coreStats?.total_revenue ?? 0,
+    todayRevenue: coreStats?.today_revenue ?? 0,
+    criticalAlerts: coreStats?.critical_alerts ?? 0,
+    pendingActions: coreStats?.pending_actions ?? 0,
+  };
+import {
+  ArrowLeft,
+  Users,
+  Plus,
+  Gift,
+  Shield,
+  ShoppingCart,
+  BarChart3,
+  Percent,
+  AlertTriangle,
+  Eye,
+  UserPlus,
+  Wifi,
+  Settings,
+  Database,
+  Server,
+  Video,
+  MessageSquare,
+  ChevronRight,
+  Activity,
+  DollarSign,
+  RefreshCw,
+  Home,
+  Terminal,
+  TrendingUp,
+  Clock,
+  Bell,
+  CheckCircle,
+  XCircle,
+} from 'lucide-react';
+import { User } from '../types';
+import { Button } from './ui/button';
+import { Badge } from './ui/badge';
+import { Card, CardContent } from './ui/card';
+import { Alert, AlertDescription } from './ui/alert';
+
+interface AdminPanelProps {
+  user: User;
+  onBack: () => void;
+  onUpdateUser: (user: User) => void;
+  onAddNotification: (message: string) => void;
+  navigate?: (path: string) => void;
+  coreStats?: {
+    total_users: number;
+    active_users: number;
+    online_users: number;
+    total_revenue: number;
+    today_revenue: number;
+    critical_alerts: number;
+    pending_actions: number;
+  };
+  loadingStats?: boolean;
+  statsError?: string | null;
+}
+
+// 💼 빠른 작업 메뉴 인터페이스
+interface QuickAction {
+  id: string;
+  title: string;
+  description: string;
+  icon: React.ComponentType<any>;
+  bgClass: string;
+  shortcut?: string;
+  category: 'user' | 'shop' | 'security' | 'system' | 'broadcast';
+  onClick: () => void;
+}
+
+export function AdminPanel({ user, onBack, onUpdateUser, onAddNotification, coreStats, loadingStats, statsError, navigate }: AdminPanelProps) {
+  const [activeView, setActiveView] = useState(
+    'menu' as 'menu' | 'dashboard' | 'users' | 'shop' | 'security' | 'system'
+  );
+  const [searchQuery, setSearchQuery] = useState('');
+
+  // 📊 핵심 통계: 전달된 props 기반 가공
+  const statsView = {
+    totalUsers: coreStats?.total_users ?? 0,
+    activeUsers: coreStats?.active_users ?? 0,
+    onlineUsers: coreStats?.online_users ?? 0,
+    totalRevenue: coreStats?.total_revenue ?? 0,
+    todayRevenue: coreStats?.today_revenue ?? 0,
+    criticalAlerts: coreStats?.critical_alerts ?? 0,
+    pendingActions: coreStats?.pending_actions ?? 0,
+  };
+
+  // 💼 빠른 작업 메뉴 정의 (globals.css 클래스 사용)
+  const quickActions: QuickAction[] = [
+    // 👥 사용자 관리
+    {
+      id: 'add-user',
+      title: '사용자 추가',
+      description: '새 사용자 계정 생성',
+      icon: UserPlus,
+      bgClass: 'bg-gradient-to-r from-success to-info',
+      shortcut: 'Ctrl+U',
+      category: 'user',
+  onClick: () => navigate ? navigate('/admin/users') : setActiveView('users'),
+    },
+    {
+      id: 'manage-users',
+      title: '사용자 관리',
+      description: '계정 상태 변경, 정보 수정',
+      icon: Users,
+      bgClass: 'bg-gradient-to-r from-primary to-primary-light',
+      category: 'user',
+  onClick: () => navigate ? navigate('/admin/users') : setActiveView('users'),
+    },
+    {
+      id: 'ban-management',
+      title: '제재 관리',
+      description: '차단/정지 사용자 관리',
+      icon: Shield,
+      bgClass: 'bg-gradient-to-r from-error to-warning',
+      category: 'user',
+      onClick: () => setActiveView('security'),
+    },
+    {
+      id: 'bulk-rewards',
+      title: '일괄 보상 지급',
+      description: '여러 사용자에게 보상 지급',
+      icon: Gift,
+      bgClass: 'bg-gradient-gold',
+      category: 'user',
+      onClick: () => onAddNotification('🎁 일괄 보상 지급 기능을 준비중입니다.'),
+    },
+
+    // 🛍️ 상점 관리
+    {
+      id: 'add-item',
+      title: '상품 추가',
+      description: '새 상점 아이템 등록',
+      icon: Plus,
+      bgClass: 'bg-gradient-to-r from-warning to-gold',
+      category: 'shop',
+  onClick: () => navigate ? navigate('/admin/shop') : setActiveView('shop'),
+    },
+    {
+      id: 'manage-shop',
+      title: '상점 관리',
+      description: '가격 조정, 재고 관리',
+      icon: ShoppingCart,
+      bgClass: 'bg-gradient-to-r from-info to-primary',
+      category: 'shop',
+  onClick: () => navigate ? navigate('/admin/shop') : setActiveView('shop'),
+    },
+    {
+      id: 'sales-analytics',
+      title: '판매 분석',
+      description: '매출 통계 및 인기 상품',
+      icon: BarChart3,
+      bgClass: 'bg-gradient-to-r from-success to-warning',
+      category: 'shop',
+  onClick: () => navigate ? navigate('/admin/stats') : onAddNotification('📊 판매 분석 리포트를 생성중입니다.'),
+    },
+    {
+      id: 'promotions',
+      title: '프로모션 설정',
+      description: '할인 이벤트 및 특가 설정',
+      icon: Percent,
+      bgClass: 'bg-gradient-to-r from-error to-primary',
+      category: 'shop',
+  onClick: () => navigate ? navigate('/admin/campaigns') : onAddNotification('🏷️ 프로모션 설정 기능을 준비중입니다.'),
+    },
+
+    // 🛡️ 보안 관리
+    {
+      id: 'security-alerts',
+      title: '보안 알림',
+      description: '의심스러운 활동 모니터링',
+      icon: AlertTriangle,
+      bgClass: 'bg-gradient-to-r from-error to-error-soft',
+      category: 'security',
+  onClick: () => setActiveView('security'),
+    },
+    {
+      id: 'fraud-detection',
+      title: '부정행위 탐지',
+      description: '자동 부정행위 감지 설정',
+      icon: Eye,
+      bgClass: 'bg-gradient-to-r from-warning to-error',
+      category: 'security',
+  onClick: () => setActiveView('security'),
+    },
+    {
+      id: 'ip-management',
+      title: 'IP 관리',
+      description: 'IP 차단/허용 목록 관리',
+      icon: Wifi,
+      bgClass: 'bg-gradient-to-r from-info to-success',
+      category: 'security',
+      onClick: () => onAddNotification('🌐 IP 관리 패널을 준비중입니다.'),
+    },
+
+    // ⚙️ 시스템 관리
+    {
+      id: 'system-settings',
+      title: '시스템 설정',
+      description: '게임 설정 및 서버 관리',
+      icon: Settings,
+      bgClass: 'bg-gradient-metal',
+      category: 'system',
+  onClick: () => setActiveView('system'),
+    },
+    {
+      id: 'backup-restore',
+      title: '백업/복원',
+      description: '데이터 백업 및 복원',
+      icon: Database,
+      bgClass: 'bg-gradient-to-r from-info to-primary',
+      category: 'system',
+      onClick: () => onAddNotification('💾 백업 시스템을 점검중입니다.'),
+    },
+    {
+      id: 'server-status',
+      title: '서버 상태',
+      description: '서버 모니터링 및 성능',
+      icon: Server,
+      bgClass: 'bg-gradient-to-r from-success to-info',
+      category: 'system',
+      onClick: () => onAddNotification('🖥️ 서버 상태가 정상입니다.'),
+    },
+
+    // 📺 방송 관리
+    {
+      id: 'stream-control',
+      title: '방송 제어',
+      description: 'Luna Star 방송 설정',
+      icon: Video,
+      bgClass: 'bg-gradient-to-r from-primary to-error',
+      category: 'broadcast',
+      onClick: () => onAddNotification('📺 방송 제어 패널을 준비중입니다.'),
+    },
+    {
+      id: 'chat-moderation',
+      title: '채팅 관리',
+      description: '채팅 모더레이션 및 필터',
+      icon: MessageSquare,
+      bgClass: 'bg-gradient-to-r from-warning to-primary',
+      category: 'broadcast',
+      onClick: () => onAddNotification('💬 채팅 관리 기능을 준비중입니다.'),
+    },
+  ];
+
+  // 카테고리별 아이콘
+  const categoryIcons = {
+    user: Users,
+    shop: ShoppingCart,
+    security: Shield,
+    system: Settings,
+    broadcast: Video,
+  };
+
+  // 카테고리별 그룹화
+  const actionsByCategory = quickActions.reduce(
+    (acc, action) => {
+      if (!acc[action.category]) acc[action.category] = [];
+      acc[action.category].push(action);
+      return acc;
+    },
+    {} as Record<string, QuickAction[]>
+  );
+
+  const categoryNames = {
+    user: '👥 사용자 관리',
+    shop: '🛍️ 상점 관리',
+    security: '🛡️ 보안 관리',
+    system: '⚙️ 시스템 관리',
+    broadcast: '📺 방송 관리',
+  };
+
+  const categoryBgClasses = {
+    user: 'bg-gradient-to-r from-success to-info',
+    shop: 'bg-gradient-to-r from-warning to-gold',
+    security: 'bg-gradient-to-r from-error to-warning',
+    system: 'bg-gradient-metal',
+    broadcast: 'bg-gradient-to-r from-primary to-error',
+  };
+
+  return (
+    <div className="min-h-screen bg-background relative overflow-hidden">
+      {loadingStats && (
+        <div className="absolute top-2 left-1/2 -translate-x-1/2 w-full max-w-md px-4 z-50">
+          <div className="animate-pulse rounded-md bg-gradient-to-r from-neutral-800/70 via-neutral-700/40 to-neutral-800/70 h-14 border border-neutral-700 shadow-lg" />
+        </div>
+      )}
+      {statsError && !loadingStats && (
+        <div className="absolute top-2 left-1/2 -translate-x-1/2 w-full max-w-lg px-4 z-50">
+          <Alert variant="destructive" className="glass-metal border-error/50">
+            <AlertTriangle className="h-4 w-4" />
+            <AlertDescription>
+              실시간 통계 로딩 실패: {statsError} (기본값 표시중)
+            </AlertDescription>
+          </Alert>
+        </div>
+      )}
+      {/* 🎯 상단 헤더 */}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="relative z-10 p-4 lg:p-6 border-b border-border-secondary glass-effect"
+      >
+        <div className="flex items-center justify-between max-w-7xl mx-auto">
+          <div className="flex items-center gap-4">
+            <Button variant="outline" onClick={onBack} className="glass-metal btn-hover-lift">
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              뒤로가기
+            </Button>
+
+            <div>
+              <h1 className="text-xl lg:text-2xl text-gradient-primary">🔐 관리자 패널 v3.0</h1>
+              <p className="text-sm text-muted-foreground">업무 효율성 최적화 버전</p>
+            </div>
+          </div>
+
+          {/* 🎯 상단 빠른 통계 */}
+          <div className="hidden md:flex items-center gap-6">
+            <div className="text-center">
+              <div className="text-lg text-primary">{loadingStats ? '…' : statsView.onlineUsers}</div>
+              <div className="text-xs text-muted-foreground">온라인</div>
+            </div>
+            <div className="text-center">
+              <div className="text-lg text-gradient-gold">{loadingStats ? '…' : `${(statsView.todayRevenue / 1000).toFixed(0)}K`}</div>
+              <div className="text-xs text-muted-foreground">오늘 수익</div>
+            </div>
+            <div className="text-center">
+              <div className="text-lg text-error">{loadingStats ? '…' : statsView.criticalAlerts}</div>
+              <div className="text-xs text-muted-foreground">긴급 알림</div>
+            </div>
+
+            <div className="text-right">
+              <div className="text-sm text-error">관리자: {user.nickname}</div>
+              <div className="text-xs text-muted-foreground">최고 권한</div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* 🎯 메인 콘텐츠 */}
+      <div className="relative z-10 max-w-7xl mx-auto p-4 lg:p-6">
+        {/* 💼 빠른 네비게이션 바 */}
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-6">
+          <div className="flex items-center gap-2 mb-4">
+            <Button
+              variant={activeView === 'menu' ? 'default' : 'outline'}
+              onClick={() => setActiveView('menu')}
+              className={`btn-hover-lift ${activeView === 'menu' ? 'bg-gradient-game' : 'glass-metal'}`}
+            >
+              <Home className="w-4 h-4 mr-2" />
+              기능 메뉴
+            </Button>
+            <Button
+              variant={activeView === 'dashboard' ? 'default' : 'outline'}
+              onClick={() => setActiveView('dashboard')}
+              className={`btn-hover-lift ${activeView === 'dashboard' ? 'bg-gradient-game' : 'glass-metal'}`}
+            >
+              <BarChart3 className="w-4 h-4 mr-2" />
+              대시보드
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => onAddNotification('📊 데이터를 새로고침했습니다.')}
+              className="ml-auto btn-hover-lift glass-metal btn-hover-glow"
+            >
+              <RefreshCw className="w-4 h-4 mr-2" />
+              새로고침
+            </Button>
+          </div>
+        </motion.div>
+
+        {/* 🎯 메인 화면 전환 */}
+        <AnimatePresence mode="wait">
+          {activeView === 'menu' && (
+            <motion.div
+              key="menu"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.2 }}
+              className="space-y-8"
+            >
+              {/* 🚨 긴급 알림 */}
+              {statsView.criticalAlerts > 0 && (
+                <Alert className="border-error bg-error-soft glass-metal">
+                  <AlertTriangle className="h-4 w-4" />
+                  <AlertDescription className="text-foreground">
+                    <span className="text-gradient-primary">
+                      {statsView.criticalAlerts}개의 긴급 알림
+                    </span>
+                    이 있습니다.
+                    <Button
+                      variant="link"
+                      className="p-0 h-auto ml-2 text-error btn-hover-glow"
+                      onClick={() => setActiveView('security')}
+                    >
+                      지금 확인하기 →
+                    </Button>
+                  </AlertDescription>
+                </Alert>
+              )}
+
+              {/* 💼 카테고리별 빠른 작업 메뉴 */}
+              {Object.entries(actionsByCategory).map(([category, actions]) => {
+                const CategoryIcon = categoryIcons[category as keyof typeof categoryIcons];
+                const categoryBgClass =
+                  categoryBgClasses[category as keyof typeof categoryBgClasses];
+
+                return (
+                  <motion.div
+                    key={category}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 }}
+                  >
+                    <div className="flex items-center gap-3 mb-4">
+                      <div
+                        className={`w-8 h-8 ${categoryBgClass} rounded-lg flex items-center justify-center metal-shine`}
+                      >
+                        <CategoryIcon className="w-5 h-5 text-white" />
+                      </div>
+                      <h2 className="text-lg text-foreground">
+                        {categoryNames[category as keyof typeof categoryNames]}
+                      </h2>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                      {actions.map((action) => {
+                        const ActionIcon = action.icon;
+
+                        return (
+                          <motion.div
+                            key={action.id}
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                          >
+                            <Card
+                              className="glass-metal cursor-pointer card-hover-float"
+                              onClick={action.onClick}
+                            >
+                              <CardContent className="p-4">
+                                <div className="flex items-start gap-3">
+                                  <div
+                                    className={`w-12 h-12 ${action.bgClass} rounded-xl flex items-center justify-center metal-shine`}
+                                  >
+                                    <ActionIcon className="w-6 h-6 text-white" />
+                                  </div>
+                                  <div className="flex-1 min-w-0">
+                                    <h3 className="text-foreground mb-1 truncate">
+                                      {action.title}
+                                    </h3>
+                                    <p className="text-sm text-muted-foreground line-clamp-2">
+                                      {action.description}
+                                    </p>
+                                    {action.shortcut && (
+                                      <div className="mt-2">
+                                        <Badge variant="outline" className="text-xs glass-metal">
+                                          {action.shortcut}
+                                        </Badge>
+                                      </div>
+                                    )}
+                                  </div>
+                                  <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+                                </div>
+                              </CardContent>
+                            </Card>
+                          </motion.div>
+                        );
+                      })}
+                    </div>
+                  </motion.div>
+                );
+              })}
+
+              {/* 📊 빠른 상태 체크 */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+              >
+                <h2 className="text-lg text-foreground mb-4 flex items-center gap-2">
+                  <Activity className="w-5 h-5 text-success" />
+                  📊 시스템 현황
+                </h2>
+
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <Card className="glass-metal">
+                    <CardContent className="p-4 text-center">
+                      <div className="text-2xl text-success mb-1">
+                        {statsView.activeUsers.toLocaleString()}
+                      </div>
+                      <div className="text-sm text-muted-foreground">활성 사용자</div>
+                    </CardContent>
+                  </Card>
+
+                  <Card className="glass-metal">
+                    <CardContent className="p-4 text-center">
+                      <div className="text-2xl text-gradient-gold mb-1">
+                        ${(statsView.totalRevenue / 1000000).toFixed(1)}M
+                      </div>
+                      <div className="text-sm text-muted-foreground">총 수익</div>
+                    </CardContent>
+                  </Card>
+
+                  <Card className="glass-metal">
+                    <CardContent className="p-4 text-center">
+                      <div className="text-2xl text-primary mb-1">{statsView.pendingActions}</div>
+                      <div className="text-sm text-muted-foreground">대기 작업</div>
+                    </CardContent>
+                  </Card>
+
+                  <Card className="glass-metal">
+                    <CardContent className="p-4 text-center">
+                      <div className="text-2xl text-success mb-1">99.9%</div>
+                      <div className="text-sm text-muted-foreground">서버 가동률</div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+
+          {activeView === 'dashboard' && (
+            <motion.div
+              key="dashboard"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.2 }}
+              className="space-y-6"
+            >
+              <h2 className="text-xl text-gradient-primary">📊 핵심 대시보드</h2>
+
+              {/* 기본 통계만 표시 */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <Card className="glass-metal">
+                  <CardContent className="p-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 bg-primary-soft rounded-lg flex items-center justify-center">
+                        <Users className="w-6 h-6 text-primary" />
+                      </div>
+                      <div>
+                        <div className="text-2xl text-foreground">
+                          {statsView.totalUsers.toLocaleString()}
+                        </div>
+                        <div className="text-sm text-muted-foreground">총 사용자</div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="glass-metal">
+                  <CardContent className="p-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 bg-success-soft rounded-lg flex items-center justify-center">
+                        <Activity className="w-6 h-6 text-success" />
+                      </div>
+                      <div>
+                        <div className="text-2xl text-foreground">
+                          {statsView.activeUsers.toLocaleString()}
+                        </div>
+                        <div className="text-sm text-muted-foreground">활성 사용자</div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="glass-metal">
+                  <CardContent className="p-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 bg-gold-soft rounded-lg flex items-center justify-center">
+                        <DollarSign className="w-6 h-6 text-gold" />
+                      </div>
+                      <div>
+                        <div className="text-2xl text-foreground">
+                          ${(statsView.totalRevenue / 1000).toFixed(0)}K
+                        </div>
+                        <div className="text-sm text-muted-foreground">총 수익</div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="glass-metal">
+                  <CardContent className="p-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 bg-error-soft rounded-lg flex items-center justify-center">
+                        <AlertTriangle className="w-6 h-6 text-error" />
+                      </div>
+                      <div>
+                        <div className="text-2xl text-foreground">{statsView.criticalAlerts}</div>
+                        <div className="text-sm text-muted-foreground">긴급 알림</div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <div className="text-center">
+                <Button
+                  onClick={() => setActiveView('menu')}
+                  className="bg-gradient-game btn-hover-lift"
+                >
+                  <ArrowLeft className="w-4 h-4 mr-2" />
+                  기능 메뉴로 돌아가기
+                </Button>
+              </div>
+            </motion.div>
+          )}
+
+          {/* 다른 뷰들은 기본 메시지 표시 */}
+          {activeView !== 'menu' && activeView !== 'dashboard' && (
+            <motion.div
+              key={activeView}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.2 }}
+              className="text-center py-12"
+            >
+              <div className="glass-metal rounded-2xl p-8 max-w-md mx-auto">
+                <Terminal className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
+                <h2 className="text-xl text-foreground mb-2">
+                  {activeView === 'users' && '👥 사용자 관리'}
+                  {activeView === 'shop' && '🛍️ 상점 관리'}
+                  {activeView === 'security' && '🛡️ 보안 관리'}
+                  {activeView === 'system' && '⚙️ 시스템 관리'}
+                </h2>
+                <p className="text-muted-foreground mb-6">해당 기능은 현재 개발 중입니다.</p>
+                <Button
+                  onClick={() => setActiveView('menu')}
+                  className="bg-gradient-game btn-hover-lift"
+                >
+                  <ArrowLeft className="w-4 h-4 mr-2" />
+                  기능 메뉴로 돌아가기
+                </Button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </div>
+  );
+}

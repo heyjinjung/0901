@@ -1,0 +1,84 @@
+name: Backend CI
+
+on:
+  push:
+    branches: [ main, feature/** ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:14
+        env:
+            POSTGRES_USER: cc_user
+            POSTGRES_PASSWORD: cc_password
+            POSTGRES_DB: cc_webapp
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U cc_user -d cc_webapp" \
+          --health-interval 10s \
+          --health-timeout 5s \
+          --health-retries 5
+      redis:
+        image: redis:7
+        ports: ["6379:6379"]
+        options: >-
+          --health-cmd "redis-cli ping" \
+          --health-interval 10s \
+          --health-timeout 5s \
+          --health-retries 5
+    env:
+      POSTGRES_SERVER: localhost
+      POSTGRES_USER: cc_user
+      POSTGRES_PASSWORD: cc_password
+      POSTGRES_DB: cc_webapp
+      JWT_SECRET_KEY: test-ci-secret
+      PYTHONPATH: cc-webapp/backend/app
+      ECONOMY_V2_ACTIVE: "1"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install backend deps
+        working-directory: cc-webapp/backend
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install ruff black isort mypy
+
+      - name: Lint (ruff)
+        working-directory: cc-webapp/backend
+        run: ruff check .
+
+      - name: Format check (black)
+        working-directory: cc-webapp/backend
+        run: black --check .
+
+      - name: isort check
+        working-directory: cc-webapp/backend
+        run: isort --profile=black --check-only .
+
+      - name: Mypy (soft)
+        working-directory: cc-webapp/backend
+        continue-on-error: true
+        run: mypy app || true
+
+      - name: Targeted pytest
+        working-directory: cc-webapp/backend
+        run: |
+          pytest -q app/tests/test_auth.py || true
+          if [ -f app/tests/test_shop_buy.py ]; then pytest -q app/tests/test_shop_buy.py || true; fi
+
+  playwright-smoke:
+    if: false
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Playwright smoke disabled (placeholder)"

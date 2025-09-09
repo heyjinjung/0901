@@ -1,0 +1,11 @@
+# Exclude heavy/local-only artifacts from build context
+node_modules
+.next
+.git
+logs
+coverage
+test-results
+npm-debug.log*
+yarn-error.log*
+.DS_Store
+*.swp

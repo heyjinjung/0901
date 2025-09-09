@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Tailwind 전용 컴포넌트는 여기에 정의 */
+@layer components {
+  /* 중복되는 클래스는 모두 제거하고 globals.css에서 관리 */
+  .button-gradient {
+    @apply bg-gradient-game hover:opacity-90 text-white font-medium;
+  }
+  
+  .button-outline {
+    @apply bg-transparent border border-[var(--primary)] border-opacity-30 text-primary hover:bg-[var(--primary)] hover:bg-opacity-10;
+  }
+}

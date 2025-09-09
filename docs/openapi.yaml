@@ -1,0 +1,222 @@
+openapi: 3.1.0
+info:
+  title: Codex WebApp API
+  version: 1.0.0
+  description: |
+    ## Codex WebApp API Specification
+
+    ### Project Overview
+    - **Purpose:** Adult-oriented gamified webapp with emotion feedback
+    - **Target Audience:** Men aged 20-50
+    - **Security Level:** High-grade authentication and content protection
+
+    ### Authentication Strategy
+    - JWT-based token authentication
+    - Role-based access control
+    - Multi-factor authentication support
+
+  contact:
+    name: Codex Development Team
+    email: dev-support@codexwebapp.com
+  x-logo:
+    url: '/logo.png'
+
+servers:
+  - url: https://api.codexwebapp.com/v1
+    description: Production API
+  - url: https://staging.codexwebapp.com/v1
+    description: Staging Environment
+  - url: http://localhost:8000/v1
+    description: Local Development Server
+
+security:
+  - bearerAuth: []
+
+tags:
+  - name: Authentication
+    description: User registration, login, and account management
+  - name: User
+    description: User profile and interaction endpoints
+  - name: Content
+    description: Content discovery and unlocking mechanisms
+  - name: Gamification
+    description: Rewards, achievements, and progression systems
+
+paths:
+  /auth/register:
+    post:
+      tags: [Authentication]
+      summary: User Registration
+      description: Register a new user with email verification
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRegistration'
+      responses:
+        '201':
+          description: User successfully registered
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegistrationResponse'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+
+  /auth/login:
+    post:
+      tags: [Authentication]
+      summary: User Login
+      description: Authenticate user and generate access/refresh tokens
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Successful authentication
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /user/profile:
+    get:
+      tags: [User]
+      summary: Get User Profile
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: User profile details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfile'
+
+  /content/unlock:
+    post:
+      tags: [Content]
+      summary: Unlock Premium Content
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                contentId:
+                  type: string
+                  description: Unique identifier for content
+      responses:
+        '200':
+          description: Content successfully unlocked
+        '402':
+          description: Insufficient credits/permissions
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    UserRegistration:
+      type: object
+      required: [email, password, age_verification]
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          minLength: 12
+        age_verification:
+          type: boolean
+        marketing_consent:
+          type: boolean
+
+    LoginRequest:
+      type: object
+      required: [email, password]
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+
+    LoginResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+          description: JWT for authenticated requests
+        refresh_token:
+          type: string
+          description: Token for obtaining new access tokens
+        user_role:
+          type: string
+          enum: [regular, premium, creator, admin]
+
+    UserProfile:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        role:
+          type: string
+        achievements:
+          type: array
+          items:
+            type: object
+        current_level:
+          type: integer
+        total_points:
+          type: integer
+
+    RegistrationResponse:
+      type: object
+      properties:
+        user_id:
+          type: string
+        verification_status:
+          type: string
+
+  responses:
+    Unauthorized:
+      description: Authentication failed
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "Invalid credentials"
+
+    ValidationError:
+      description: Validation Failed
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    field:
+                      type: string
+                    message:
+                      type: string

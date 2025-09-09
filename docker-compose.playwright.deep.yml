@@ -1,0 +1,11 @@
+version: "3.9"
+services:
+  playwright:
+    environment:
+      E2E_REALTIME_MAPPING: "1"
+      E2E_REALTIME_DEDUPE: "1"
+      E2E_SHOP_SYNC: "1"
+      # Strict modes (fail instead of skip)
+      # E2E_REQUIRE_REALTIME: "1"
+      # E2E_REQUIRE_SHOP_SYNC: "1"
+      E2E_REQUIRE_STATS_PARITY: "1"

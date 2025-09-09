@@ -1,0 +1,39 @@
+version: "3.9"
+services:
+  playwright:
+    image: mcr.microsoft.com/playwright:v1.55.0-jammy
+    container_name: cc_playwright
+    working_dir: /workspace/cc-webapp/frontend
+    environment:
+      BASE_URL: http://frontend:3000
+      API_BASE_URL: http://backend:8000
+      CI: "1"
+      HEADLESS: "1"
+      TS_NODE_CACHE: "false"
+      # E2E feature flags (host env overrides supported)
+      E2E_REQUIRE_STATS_PARITY: "${E2E_REQUIRE_STATS_PARITY:-0}"
+      E2E_SHOP_SYNC: "${E2E_SHOP_SYNC:-0}"
+      E2E_REQUIRE_SHOP_SYNC: "${E2E_REQUIRE_SHOP_SYNC:-0}"
+      E2E_REALTIME_MAPPING: "${E2E_REALTIME_MAPPING:-0}"
+      E2E_REALTIME_DEDUPE: "${E2E_REALTIME_DEDUPE:-0}"
+      E2E_REQUIRE_REALTIME: "${E2E_REQUIRE_REALTIME:-0}"
+    volumes:
+      - ./:/workspace
+      - ./logs/playwright:/workspace/cc-webapp/frontend/test-results:rw
+      - playwright_node_modules:/workspace/cc-webapp/frontend/node_modules
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - ccnet
+    entrypoint:
+      - bash
+      - -lc
+      - rm -rf /workspace/cc-webapp/frontend/node_modules/.cache || true && npm install --no-audit --no-fund && npx playwright test --config=playwright.config.ts
+
+networks:
+  ccnet:
+    external: true
+
+volumes:
+  playwright_node_modules:

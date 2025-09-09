@@ -1,0 +1,66 @@
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: cc_prometheus
+    volumes:
+      - ./cc-webapp/monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./cc-webapp/monitoring/invite_code_alerts.yml:/etc/prometheus/rules/invite_code_alerts.yml:ro
+      - ./cc-webapp/monitoring/purchase_alerts.yml:/etc/prometheus/rules/purchase_alerts.yml:ro
+      - ./cc-webapp/monitoring/kafka_alerts.yml:/etc/prometheus/rules/kafka_alerts.yml:ro
+      - prometheus_data:/prometheus
+    ports:
+      - "9090:9090"
+    networks:
+      - ccnet
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:10.4.3
+    container_name: cc_grafana
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./cc-webapp/monitoring/grafana-provisioning/datasources:/etc/grafana/provisioning/datasources:ro
+      - ./cc-webapp/monitoring/grafana-provisioning/dashboards:/etc/grafana/provisioning/dashboards:ro
+      - ./cc-webapp/monitoring/grafana_dashboard.json:/var/lib/grafana/dashboards/app.json:ro
+    ports:
+      - "3003:3000"
+    networks:
+      - ccnet
+    restart: unless-stopped
+
+  metabase:
+    image: metabase/metabase:v0.49.13
+    container_name: cc_metabase
+    environment:
+      MB_DB_FILE: /metabase-data/metabase.db
+    volumes:
+      - metabase_data:/metabase-data
+    ports:
+      - "3002:3000"
+    networks:
+      - ccnet
+    restart: unless-stopped
+
+  kafka_exporter:
+    image: danielqsj/kafka-exporter:latest
+    container_name: cc_kafka_exporter
+    command:
+      - --kafka.server=kafka:9092
+      - --web.listen-address=:9308
+    ports:
+      - "9308:9308"
+    networks:
+      - ccnet
+    restart: unless-stopped
+
+networks:
+  ccnet:
+    external: true
+
+volumes:
+  prometheus_data:
+  grafana_data:
+  metabase_data:

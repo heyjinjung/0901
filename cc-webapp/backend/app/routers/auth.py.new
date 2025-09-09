@@ -1,0 +1,12 @@
+"""
+Casino-Club F2P - Enhanced Auth Router
+=============================================================================
+This module replaces the previous auth.py router with our enhanced authentication system
+It redirects all auth requests to the improved implementation
+"""
+
+# Import the router from our enhanced auth endpoints implementation
+from ..auth.auth_endpoints import router
+
+# Re-export the router
+__all__ = ["router"]

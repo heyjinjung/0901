@@ -1,0 +1,61 @@
+name: Playwright E2E
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    services:
+      docker:
+        image: docker:20.10.23
+        options: --privileged
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Start application stack
+        run: |
+          docker compose -f docker-compose.yml -f docker-compose.override.yml up -d --build
+
+      - name: Wait for backend to be ready
+        run: |
+          # wait for /docs health
+          for i in {1..60}; do 
+            if curl -sSf http://localhost:8000/docs >/dev/null; then echo ok; break; fi; 
+            sleep 2; 
+          done
+
+      - name: Build and run Playwright runner (run onboarding E2E)
+        env:
+          E2E_REQUIRE_STATS_PARITY: ${{ vars.E2E_REQUIRE_STATS_PARITY || '0' }}
+          E2E_SHOP_SYNC: ${{ vars.E2E_SHOP_SYNC || '0' }}
+          E2E_REQUIRE_SHOP_SYNC: ${{ vars.E2E_REQUIRE_SHOP_SYNC || '0' }}
+          E2E_REALTIME_MAPPING: ${{ vars.E2E_REALTIME_MAPPING || '0' }}
+          E2E_REALTIME_DEDUPE: ${{ vars.E2E_REALTIME_DEDUPE || '0' }}
+          E2E_REQUIRE_REALTIME: ${{ vars.E2E_REQUIRE_REALTIME || '0' }}
+        run: |
+          docker build -t cc-playwright-runner -f ci/playwright/Dockerfile .
+          # Run onboarding E2E (script will execute onboarding_e2e.py)
+          docker run --rm --network host -v ${{ github.workspace }}:/workspace -w /workspace cc-playwright-runner bash -lc "python e2e/onboarding_e2e.py"
+
+      - name: Upload Playwright artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-artifacts
+          path: |
+            e2e/artifacts/**
+            ci/playwright/artifacts/**
+            # include any junit xml reports from the runner
+            e2e/results/**/*.xml
+
+      - name: Tear down
+        if: always()
+        run: docker compose -f docker-compose.yml -f docker-compose.override.yml down -v --remove-orphans

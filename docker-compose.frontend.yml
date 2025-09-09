@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  frontend:
+    build:
+      context: ./cc-webapp/frontend
+      dockerfile: Dockerfile.dev
+    container_name: cc_frontend_temp
+    environment:
+      # 브라우저에서 백엔드에 접근할 기준 ORIGIN (unifiedApi에서 사용)
+      NEXT_PUBLIC_API_ORIGIN: ${NEXT_PUBLIC_API_ORIGIN:-http://localhost:8000}
+      # DEV 자동 로그인/부트스트랩
+      NEXT_PUBLIC_DEV_AUTO_LOGIN: ${NEXT_PUBLIC_DEV_AUTO_LOGIN:-1}
+      NEXT_PUBLIC_DEV_SITE_ID: ${NEXT_PUBLIC_DEV_SITE_ID:-dev_tester}
+      NEXT_PUBLIC_DEV_PASSWORD: ${NEXT_PUBLIC_DEV_PASSWORD:-pass1234}
+      NEXT_PUBLIC_DEV_INVITE_CODE: ${NEXT_PUBLIC_DEV_INVITE_CODE:-5858}
+    volumes:
+      - ./cc-webapp/frontend:/app
+      - ./logs/frontend:/app/logs:rw
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    command: ["sh","-c","npm ci || npm install && npm run dev -- -H 0.0.0.0"]
+    networks:
+      - frontend-net
+
+networks:
+  frontend-net:
+    driver: bridge

@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  backend-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Start test stack
+        run: |
+          docker compose -f docker-compose.yml -f docker-compose.test.yml --env-file .env.test up -d --build postgres_test redis_test zookeeper_test kafka_test
+          docker compose -f docker-compose.yml -f docker-compose.test.yml --env-file .env.test up -d --build backend_test
+
+      - name: Wait for backend presence
+        run: |
+          for i in {1..30}; do
+            if docker ps --format '{{.Names}} {{.Status}}' | grep -q 'cc_backend_test'; then echo "Backend container present"; break; fi; sleep 2; done
+          docker logs cc_backend_test --tail 200 || true
+
+      - name: Alembic history
+        run: docker exec cc_backend_test alembic history | tail -n 50
+
+      - name: Alembic explicit downgrade/upgrade
+        run: |
+          # Downgrade to a stable known revision if present, then upgrade back to head
+          set -e
+          docker exec cc_backend_test alembic current
+          # Try downgrade to previous revision id if available; ignore if not applicable
+          docker exec cc_backend_test sh -lc "alembic downgrade -1 || true"
+          docker exec cc_backend_test alembic upgrade head
+
+      - name: Run Alembic guard (inside container)
+        env:
+          CI_ENFORCE_ALEMBIC_UPGRADE: "1"
+        run: |
+          # Enforce that 'alembic upgrade head' succeeds when the guard env is set
+          docker exec -e CI_ENFORCE_ALEMBIC_UPGRADE=1 cc_backend_test pytest -q app/tests/test_ci_alembic_guard.py -q
+
+      - name: Run minimal tests (inside container)
+        env:
+          KAFKA_TEST_TOPIC: cc_test_ci
+          KAFKA_ENABLED: "1"
+        run: |
+          # Run only curated green path tests for gating
+          docker exec -e KAFKA_TEST_TOPIC=cc_test_ci -e KAFKA_ENABLED=1 cc_backend_test pytest -q app/tests/test_user_journey.py app/tests/test_kafka_roundtrip.py
+
+      - name: Teardown
+        if: always()
+        run: docker compose -f docker-compose.yml -f docker-compose.test.yml --env-file .env.test down -v

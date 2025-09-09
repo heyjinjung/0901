@@ -1,0 +1,92 @@
+version: 1
+tasks:
+  setup:
+    script: |
+      # Make scripts executable
+      chmod +x ./jules-setup.sh
+      chmod +x ./init-test-data.sh
+      chmod +x ./health-check.sh
+      chmod +x ./jules-diagnostics.sh
+      chmod +x ./jules-adapt.sh
+      chmod +x ./jules-fixes.sh
+      
+      # Check environment and apply fixes
+      ./jules-diagnostics.sh
+      source ./jules-fixes.sh
+      
+      # Run Jules setup script
+      ./jules-setup.sh
+      
+      # Adapt for Jules environment
+      ./jules-adapt.sh
+      
+      # Copy environment variables
+      cp .env.jules .env
+      
+      # Install backend dependencies
+      pip install -r cc-webapp/backend/requirements.txt
+      
+      # Install frontend dependencies
+      cd cc-webapp/frontend
+      npm install
+      cd ../..
+      
+      # Build Docker containers
+      ./docker-manage.sh setup
+      
+      # Start services
+      ./docker-manage.sh start
+      
+      # Wait for services to be ready
+      sleep 15
+      
+      # Verify services are running
+      ./health-check.sh
+      
+  test:
+    script: |
+      # Check services
+      ./docker-manage.sh status
+      
+      # Load test data
+      ./docker-manage.sh seed
+      
+      # Run backend tests
+      ./docker-manage.sh test backend
+      
+      # Run frontend tests
+      ./docker-manage.sh test frontend
+      
+      # Run integration tests (if available)
+      if [ -f "test_api_integration.py" ]; then
+        python test_api_integration.py
+      fi
+      
+  lint:
+    script: |
+      # Backend linting
+      cd cc-webapp/backend
+      black . --check
+      ruff check .
+      
+      # Frontend linting
+      cd ../frontend
+      npm run lint
+      
+  build:
+    script: |
+      # Build backend
+      cd cc-webapp/backend
+      pip install -e .
+      
+      # Build frontend
+      cd ../frontend
+      npm run build
+      
+      # Verify build
+      if [ -d "../frontend/.next" ]; then
+        echo "Frontend build successful!"
+      else
+        echo "Frontend build failed!"
+        exit 1
+      fi

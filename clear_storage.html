@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>로컬스토리지 정리</title>
+</head>
+<body>
+    <h1>Casino-Club F2P 로컬스토리지 정리</h1>
+    <div id="status"></div>
+    
+    <button onclick="clearAllStorage()">모든 저장소 정리</button>
+    <button onclick="showCurrentStorage()">현재 저장소 확인</button>
+    <button onclick="clearGameUser()">game-user만 정리</button>
+
+    <script>
+        function clearAllStorage() {
+            const statusDiv = document.getElementById('status');
+            
+            // 로컬스토리지 전체 정리
+            localStorage.clear();
+            
+            // 세션스토리지 전체 정리  
+            sessionStorage.clear();
+            
+            // 쿠키 정리
+            document.cookie.split(";").forEach(function(c) { 
+                document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); 
+            });
+            
+            statusDiv.innerHTML = '<p style="color: green;">✅ 모든 저장소가 정리되었습니다!</p>';
+            console.log('모든 저장소 정리 완료');
+        }
+        
+        function showCurrentStorage() {
+            const statusDiv = document.getElementById('status');
+            let html = '<h3>현재 저장소 상태:</h3>';
+            
+            html += '<h4>LocalStorage:</h4><ul>';
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                const value = localStorage.getItem(key);
+                html += `<li><strong>${key}:</strong> ${value.substring(0, 100)}${value.length > 100 ? '...' : ''}</li>`;
+            }
+            html += '</ul>';
+            
+            html += '<h4>SessionStorage:</h4><ul>';
+            for (let i = 0; i < sessionStorage.length; i++) {
+                const key = sessionStorage.key(i);
+                const value = sessionStorage.getItem(key);
+                html += `<li><strong>${key}:</strong> ${value.substring(0, 100)}${value.length > 100 ? '...' : ''}</li>`;
+            }
+            html += '</ul>';
+            
+            html += '<h4>Cookies:</h4><ul>';
+            document.cookie.split(';').forEach(cookie => {
+                if (cookie.trim()) {
+                    html += `<li>${cookie.trim()}</li>`;
+                }
+            });
+            html += '</ul>';
+            
+            statusDiv.innerHTML = html;
+        }
+        
+        function clearGameUser() {
+            localStorage.removeItem('game-user');
+            sessionStorage.removeItem('game-user');
+            document.getElementById('status').innerHTML = '<p style="color: blue;">game-user 데이터가 정리되었습니다.</p>';
+        }
+        
+        // 페이지 로드 시 현재 상태 표시
+        window.onload = function() {
+            showCurrentStorage();
+        };
+    </script>
+</body>
+</html>

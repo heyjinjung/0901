@@ -1,0 +1,21 @@
+{
+  "base": "C:\\Users\\bdbd\\0003\\0801\\cc-webapp\\frontend",
+  "duplicate_group_count": 1,
+  "duplicate_files_total": 2,
+  "groups": [
+    {
+      "hash": "656856e584cc930703f5c6e4649876ff7cf2aaf12e4cc22a04a67b1fb20e41e2",
+      "count": 2,
+      "files": [
+        {
+          "path": "C:\\Users\\bdbd\\0003\\0801\\cc-webapp\\frontend\\openapi_spec.json",
+          "size": 411132
+        },
+        {
+          "path": "C:\\Users\\bdbd\\0003\\0801\\cc-webapp\\frontend\\temp_openapi_live.json",
+          "size": 411132
+        }
+      ]
+    }
+  ]
+}

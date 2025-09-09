@@ -1,0 +1,33 @@
+groups:
+  - name: invite-code-rotation
+    interval: 30s
+    rules:
+      - alert: ExcessiveUnknownInviteCodeAttempts
+        expr: sum(rate(app_invite_code_attempts_total{code!="5858",status="invalid"}[5m])) > 50
+        for: 5m
+        labels:
+          severity: critical
+          team: auth
+        annotations:
+          summary: "허용되지 않은 초대코드 시도 급증"
+          description: "최근 5분 동안 미허용 코드 invalid 시도수가 50건 초과. 공격 또는 유출 가능성 조사 필요."
+
+      - alert: LegacyMasterCodeDropLowUsage
+        expr: (sum(increase(app_invite_code_signups_total{code="5858"}[24h])) / sum(increase(app_invite_code_signups_total[24h]))) < 0.05
+        for: 24h
+        labels:
+          severity: warning
+          team: auth
+        annotations:
+          summary: "마스터 코드(5858) 24h 비중 5% 미만"
+          description: "회전 완료 후보. 24시간 내 5858 사용 비율 5% 미만. 정책 전환 검토."
+
+      - alert: NewInviteCodeAdoptionLow
+        expr: sum(increase(app_invite_code_signups_total{code!="5858"}[1h])) < 3
+        for: 1h
+        labels:
+          severity: info
+          team: auth
+        annotations:
+          summary: "신규 초대코드 1h 채택 저조"
+          description: "지난 1시간 신규 코드 기반 가입 3건 미만. 홍보 또는 배포 문제 점검."

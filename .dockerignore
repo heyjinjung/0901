@@ -1,0 +1,16 @@
+# Exclude data, logs, and local runtime artifacts from Docker build context
+data/
+logs/
+test-results/
+tmp_backend_logs.txt
+.vscode/
+.venv/
+**/node_modules/
+**/.next/
+**/.git/
+**/.pytest_cache/
+*.pyc
+__pycache__/
+.env*
+cc-webapp/frontend/.turbo/
+cc-webapp/frontend/.vercel

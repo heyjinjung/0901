@@ -1,0 +1,95 @@
+# 테스트 환경 구성을 위한 Docker Compose 설정
+# 테스트 실행을 위한 최소 구성만 포함
+
+services:
+  backend_test:
+    build:
+      context: ./cc-webapp/backend
+      dockerfile: Dockerfile
+    container_name: cc_backend_test
+    environment:
+      PYTHONPATH: /app
+      ENVIRONMENT: test
+      POSTGRES_SERVER: postgres_test
+      POSTGRES_USER: test_user
+      POSTGRES_PASSWORD: test_password
+      POSTGRES_DB: cc_test
+      DATABASE_URL: postgresql+psycopg2://test_user:test_password@postgres_test:5432/cc_test
+      REDIS_HOST: redis_test
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: ${REDIS_PASSWORD:-redis_password}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:-test_secret_key_change_me}
+      KAFKA_ENABLED: ${KAFKA_ENABLED:-1}
+      KAFKA_BOOTSTRAP_SERVERS: ${KAFKA_BOOTSTRAP_SERVERS:-kafka_test:9092}
+      CASINO_GACHA_LEGACY_COST: "true"  # 임시: 테스트 레거시 비용 구조 유지 (추후 제거)
+    volumes:
+      - ./cc-webapp/backend:/app
+      - ./logs/test:/app/logs:rw
+    ports:
+      - "8001:8000"
+    depends_on:
+      - postgres_test
+      - redis_test
+      - kafka_test
+    networks:
+      - ccnet_test
+    command: ["sh", "-c", "tail -f /dev/null"]
+
+  postgres_test:
+    image: postgres:15.3
+    container_name: cc_postgres_test
+    environment:
+      POSTGRES_USER: test_user
+      POSTGRES_PASSWORD: test_password
+      POSTGRES_DB: cc_test
+    volumes:
+      - postgres_test_data:/var/lib/postgresql/data
+      - ./data/init:/docker-entrypoint-initdb.d:ro
+    ports:
+      - "5433:5432"
+    networks:
+      - ccnet_test
+
+  redis_test:
+    image: redis:7.0
+    container_name: cc_redis_test
+    command: ["redis-server", "--requirepass", "${REDIS_PASSWORD:-redis_password}"]
+    ports:
+      - "6380:6379"
+    networks:
+      - ccnet_test
+
+  zookeeper_test:
+    image: bitnami/zookeeper:3.8
+    container_name: cc_zookeeper_test
+    environment:
+      ALLOW_ANONYMOUS_LOGIN: "yes"
+    ports:
+      - "22181:2181"
+    networks:
+      - ccnet_test
+    restart: unless-stopped
+
+  kafka_test:
+    image: bitnami/kafka:3.6
+    container_name: cc_kafka_test
+    environment:
+      KAFKA_CFG_ZOOKEEPER_CONNECT: zookeeper_test:2181
+      KAFKA_CFG_LISTENERS: PLAINTEXT://:9092
+      KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://kafka_test:9092
+      KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE: "true"
+      ALLOW_PLAINTEXT_LISTENER: "yes"
+    depends_on:
+      - zookeeper_test
+    ports:
+      - "9093:9092"
+    networks:
+      - ccnet_test
+    restart: unless-stopped
+
+networks:
+  ccnet_test:
+    driver: bridge
+
+volumes:
+  postgres_test_data:

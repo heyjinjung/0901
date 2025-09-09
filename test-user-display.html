@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>사용자 이름 표시 테스트</title>
+</head>
+<body>
+    <h1>Casino Club 사용자 이름 표시 테스트</h1>
+    
+    <div id="status">로딩 중...</div>
+    
+    <script>
+        async function testUserDisplay() {
+            const statusDiv = document.getElementById('status');
+            
+            try {
+                // 1. 메인 페이지 접속
+                statusDiv.innerHTML = '메인 페이지 접속 중...';
+                
+                const mainPageResponse = await fetch('http://localhost:3000/', {
+                    credentials: 'include'
+                });
+                
+                if (mainPageResponse.ok) {
+                    const html = await mainPageResponse.text();
+                    
+                    // 사용자 이름 찾기
+                    const userNameMatch = html.match(/GUEST|admin|user\d+|nickname|USER/gi);
+                    
+                    statusDiv.innerHTML = `
+                        <h2>메인 페이지 상태:</h2>
+                        <p>응답 코드: ${mainPageResponse.status}</p>
+                        <p>발견된 사용자 관련 텍스트: ${userNameMatch ? userNameMatch.join(', ') : '없음'}</p>
+                        <hr>
+                        <h3>다음 단계:</h3>
+                        <p>1. http://localhost:3000 에 접속</p>
+                        <p>2. 로그인 화면에서 admin/123456 또는 user001/123455 로 로그인</p>
+                        <p>3. 메인 화면에서 사용자 이름이 올바르게 표시되는지 확인</p>
+                    `;
+                } else {
+                    statusDiv.innerHTML = `
+                        <h2>오류:</h2>
+                        <p>메인 페이지 응답 코드: ${mainPageResponse.status}</p>
+                        <p>프론트엔드가 정상적으로 실행되고 있는지 확인하세요.</p>
+                    `;
+                }
+            } catch (error) {
+                statusDiv.innerHTML = `
+                    <h2>연결 오류:</h2>
+                    <p>${error.message}</p>
+                    <p>http://localhost:3000 에서 프론트엔드가 실행되고 있는지 확인하세요.</p>
+                `;
+            }
+        }
+        
+        // 페이지 로드 시 테스트 실행
+        testUserDisplay();
+    </script>
+</body>
+</html>

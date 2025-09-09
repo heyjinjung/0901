@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>강제 새로고침 테스트</title>
+</head>
+<body>
+    <h1>로그인 페이지로 리다이렉트 테스트</h1>
+    
+    <div id="results"></div>
+    <button onclick="clearCacheAndReload()">캐시 클리어 후 새로고침</button>
+    <button onclick="testMainPage()">메인 페이지 접속 테스트</button>
+
+    <script>
+    console.log('=== 캐시/쿠키 상태 확인 ===');
+    
+    // 현재 쿠키 상태 확인
+    console.log('현재 쿠키:', document.cookie);
+    
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+        return null;
+    }
+    
+    const authToken = getCookie('auth_token');
+    console.log('auth_token 쿠키:', authToken);
+    
+    function clearCacheAndReload() {
+        // 쿠키 삭제
+        document.cookie = 'auth_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        
+        // 로컬스토리지 클리어
+        localStorage.clear();
+        sessionStorage.clear();
+        
+        console.log('캐시/쿠키 클리어 완료');
+        
+        // 강제 새로고침
+        location.reload(true);
+    }
+    
+    function testMainPage() {
+        console.log('메인 페이지 접속 테스트 시작...');
+        
+        // 현재 토큰 상태 표시
+        const token = getCookie('auth_token');
+        document.getElementById('results').innerHTML = `
+            <p><strong>현재 auth_token:</strong> ${token || '없음'}</p>
+            <p><strong>테스트:</strong> 3초 후 메인 페이지로 이동합니다...</p>
+        `;
+        
+        setTimeout(() => {
+            window.location.href = 'http://localhost:3000/';
+        }, 3000);
+    }
+    
+    // 초기 상태 표시
+    document.getElementById('results').innerHTML = `
+        <p><strong>현재 쿠키:</strong> ${document.cookie || '없음'}</p>
+        <p><strong>auth_token:</strong> ${authToken || '없음'}</p>
+        <p><strong>상태:</strong> 토큰이 없으면 메인 페이지 접속 시 /login으로 리다이렉트되어야 합니다.</p>
+    `;
+    
+    </script>
+</body>
+</html>

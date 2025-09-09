@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Auth Debug</title>
+</head>
+<body>
+    <h1>인증 디버깅</h1>
+    <button onclick="checkAuth()">인증 상태 확인</button>
+    <button onclick="clearAuth()">인증 정보 삭제</button>
+    <button onclick="loginTest()">테스트 로그인</button>
+    <div id="output"></div>
+
+    <script>
+        function checkAuth() {
+            const tokens = localStorage.getItem('cc_auth_tokens');
+            const legacy = localStorage.getItem('cc_access_token');
+            const output = document.getElementById('output');
+            
+            output.innerHTML = `
+                <h3>현재 포트: ${window.location.port}</h3>
+                <p>cc_auth_tokens: ${tokens || '없음'}</p>
+                <p>cc_access_token: ${legacy || '없음'}</p>
+                <p>전체 localStorage: ${JSON.stringify(localStorage)}</p>
+            `;
+        }
+
+        function clearAuth() {
+            localStorage.removeItem('cc_auth_tokens');
+            localStorage.removeItem('cc_access_token');
+            alert('인증 정보 삭제됨');
+            checkAuth();
+        }
+
+        async function loginTest() {
+            try {
+                const response = await fetch('http://localhost:8000/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        site_id: 'test123',
+                        password: 'password123'
+                    })
+                });
+                
+                const data = await response.json();
+                if (data.access_token) {
+                    localStorage.setItem('cc_auth_tokens', JSON.stringify({
+                        access_token: data.access_token,
+                        refresh_token: data.refresh_token
+                    }));
+                    alert('로그인 성공!');
+                    checkAuth();
+                } else {
+                    alert('로그인 실패: ' + JSON.stringify(data));
+                }
+            } catch (error) {
+                alert('로그인 오류: ' + error.message);
+            }
+        }
+
+        // 페이지 로드 시 자동 체크
+        window.onload = checkAuth;
+    </script>
+</body>
+</html>

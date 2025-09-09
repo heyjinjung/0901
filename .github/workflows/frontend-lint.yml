@@ -1,0 +1,36 @@
+name: Frontend ESLint
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'cc-webapp/frontend/**'
+      - '.github/workflows/frontend-lint.yml'
+  push:
+    branches: [ main ]
+    paths:
+      - 'cc-webapp/frontend/**'
+      - '.github/workflows/frontend-lint.yml'
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: cc-webapp/frontend
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: cc-webapp/frontend/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Run ESLint
+        run: npm run lint
