@@ -6,11 +6,29 @@ from typing import Dict, Any, List, Optional
 from typing import Literal
 from datetime import datetime
 import uuid
+import threading
+
+# 프로세스 단위 인메모리 멱등 잠금 (테스트/단일 인스턴스 환경 보조)
+_IDEMP_LOCKS: dict[str, threading.Lock] = {}
+_IDEMP_LOCKS_GUARD = threading.Lock()
+
+def _acquire_idemp_lock(key: str) -> threading.Lock:
+    with _IDEMP_LOCKS_GUARD:
+        lock = _IDEMP_LOCKS.get(key)
+        if lock is None:
+            lock = threading.Lock()
+            _IDEMP_LOCKS[key] = lock
+    lock.acquire()
+    return lock
 
 from .. import models
 from .token_service import TokenService
 from .payment_gateway import PaymentGatewayService
 import json
+from sqlalchemy import text
+from ..utils.redis import get_redis  # Redis 선점 멱등 pre-lock
+from .settlement_service import SettlementService  # P0: conversion 해시/서명 생성
+from ..core.config import settings
 
 class ShopService:
     def __init__(self, db: Session, token_service: TokenService | None = None):
@@ -426,9 +444,23 @@ class ShopService:
         if new_balance is None:
             return {"success": False, "message": "Insufficient tokens"}
 
-        # Decrement stock
+        # Decrement stock (원자 감소) - oversell 방지
         if pkg.stock_remaining is not None:
-            pkg.stock_remaining = max(0, int(pkg.stock_remaining) - 1)
+            try:
+                updated = self.db.execute(
+                    text("""
+                        UPDATE shop_limited_packages
+                        SET stock_remaining = stock_remaining - 1
+                        WHERE package_id = :pid AND stock_remaining > 0
+                        RETURNING stock_remaining
+                    """), {"pid": package_id}
+                ).fetchone()
+                if not updated:
+                    self.db.rollback()
+                    return {"success": False, "message": "Out of stock"}
+            except Exception:
+                self.db.rollback()
+                return {"success": False, "message": "Stock decrement failed"}
 
         # Record transaction
         tx_code = uuid.uuid4().hex[:12]
@@ -446,11 +478,25 @@ class ShopService:
         )
         try:
             self.db.add(t)
-            # If promo used, increment usage counter (best-effort)
+            # If promo used, atomic increment with max_uses guard
             if promo_applied and self._table_exists('shop_promo_codes'):
-                pc = self.db.query(models.ShopPromoCode).filter(models.ShopPromoCode.code == promo_code).first()
-                if pc:
-                    pc.used_count = int(pc.used_count or 0) + 1
+                try:
+                    row = self.db.execute(
+                        text("""
+                            UPDATE shop_promo_codes
+                            SET used_count = used_count + 1
+                            WHERE code = :code
+                              AND is_active = 1
+                              AND (max_uses IS NULL OR used_count < max_uses)
+                            RETURNING used_count, max_uses
+                        """), {"code": promo_code}
+                    ).fetchone()
+                    if not row:
+                        self.db.rollback()
+                        return {"success": False, "message": "Invalid or exhausted promo code"}
+                except Exception:
+                    self.db.rollback()
+                    return {"success": False, "message": "Promo update failed"}
             self.db.commit()
         except Exception:
             self.db.rollback()
@@ -465,6 +511,320 @@ class ShopService:
                 granted['bonus_tokens'] = bonus_tokens
 
         return {"success": True, "message": "Limited package purchased", "new_balance": new_balance, "receipt_code": tx_code, "granted": granted}
+
+    # ----- unified gold product purchase (conversion/item stub) -----
+    def purchase_product(
+        self,
+        *,
+        user_id: int,
+        product_id: str,
+        idempotency_key: Optional[str] = None,
+    ) -> Dict[str, Any]:
+        """단일화폐(gold) 기반 상점 상품 구매.
+
+        요구사항:
+        - MODEL 포인트 전환(conversion): 내부 포인트 차감 없음. extra.source_points / granted_gold 기록 후 gold 증가.
+        - 아이템(item) 카테고리: gold 소모 후 stub 트랜잭션 (효과 적용은 외부 시스템). limit_once 상품 재구매 차단.
+        - idempotency_key 동일 + 성공 기록 있으면 재구성하여 동일 응답 (멱등).
+        - 응답: gold_before, gold_delta(+/-), gold_after, product_id, category(conversion|item), transaction_id, idempotency_key.
+        - SoftDelete/비활성 상품 방어.
+
+        extra 스키마 예:
+        conversion:
+          {"category":"conversion","source_points":330000,"granted_gold":300000,"conversion":true}
+        item stub:
+          {"category":"item","effect":"COMP_DOUBLE","stub":true,"limit_once":true}
+        """
+        if not self._table_exists('shop_products'):
+            return {"success": False, "message": "상품 테이블이 없습니다."}
+        if not self._table_exists('shop_transactions'):
+            return {"success": False, "message": "트랜잭션 테이블이 없습니다."}
+
+    # idempotent 재사용 검사 (Redis pre-lock 이전 빠른 조회)
+        if idempotency_key:
+            existing = (
+                self.db.query(models.ShopTransaction)
+                .filter(
+                    models.ShopTransaction.user_id == user_id,
+                    models.ShopTransaction.product_id == product_id,
+                    models.ShopTransaction.idempotency_key == idempotency_key,
+                    models.ShopTransaction.status == 'success',
+                ).first()
+            )
+            if existing:
+                before = None
+                extra = existing.extra or {}
+                gold_delta = 0
+                if extra:
+                    gold_delta = extra.get('granted_gold') or extra.get('gold_delta') or 0
+                    before = extra.get('gold_before')
+                # balance 최신 조회
+                user_obj = self.db.query(models.User).filter(models.User.id == user_id).first()
+                current_balance = getattr(user_obj, 'gold_balance', 0) if user_obj else None
+                gold_after = current_balance
+                return {
+                    "success": True,
+                    "idempotent": True,
+                    "product_id": product_id,
+                    "category": (extra or {}).get('category'),
+                    "gold_before": before,
+                    "gold_delta": gold_delta,
+                    "gold_after": gold_after,
+                    "transaction_id": existing.id,
+                    "idempotency_key": idempotency_key,
+                }
+
+        # Redis 선점 멱등 pre-lock (멀티 인스턴스) - 실패 시 진행 상태 혹은 재구성
+        pre_locked = False
+        redis_client = None
+        if idempotency_key:
+            try:
+                redis_client = get_redis()
+                if redis_client:
+                    prelock_key = f"shop:idemp:{user_id}:{product_id}:{idempotency_key}"
+                    # SET NX EX 60
+                    set_ok = redis_client.set(prelock_key, "1", nx=True, ex=60)
+                    if not set_ok:
+                        # 이미 다른 프로세스 진행 중 → DB에 success 있는지 재확인 후 없으면 진행중 응답
+                        existing_mid = (
+                            self.db.query(models.ShopTransaction)
+                            .filter(
+                                models.ShopTransaction.user_id == user_id,
+                                models.ShopTransaction.product_id == product_id,
+                                models.ShopTransaction.idempotency_key == idempotency_key,
+                                models.ShopTransaction.status == 'success',
+                            ).first()
+                        )
+                        if existing_mid:
+                            ex_extra = existing_mid.extra or {}
+                            return {
+                                "success": True,
+                                "idempotent": True,
+                                "product_id": product_id,
+                                "category": ex_extra.get('category'),
+                                "gold_before": ex_extra.get('gold_before'),
+                                "gold_delta": ex_extra.get('gold_delta') or ex_extra.get('granted_gold') or 0,
+                                "gold_after": self.db.query(models.User).filter(models.User.id == user_id).first().gold_balance if self.db.query(models.User).filter(models.User.id == user_id).first() else None,
+                                "transaction_id": existing_mid.id,
+                                "idempotency_key": idempotency_key,
+                                "receipt_code": existing_mid.receipt_code,
+                            }
+                        return {"success": False, "message": "IN_PROGRESS", "idempotency_key": idempotency_key}
+                    pre_locked = True
+            except Exception:  # pragma: no cover - Redis 실패는 관용 처리
+                redis_client = None
+
+        # 멱등 락 (프로세스 메모리, 보조)
+        lock: Optional[threading.Lock] = None
+        lock_key = None
+        if idempotency_key:
+            lock_key = f"{user_id}:{product_id}:{idempotency_key}"
+            lock = _acquire_idemp_lock(lock_key)
+        try:
+            product = self._get_product(product_id)
+            if not product or not product.is_active or getattr(product, 'deleted_at', None):
+                return {"success": False, "message": "유효하지 않은 상품"}
+
+            # (2차) 락 획득 후 멱등 재검사: 동시에 들어온 경쟁 요청 중 선행 성공 건 재활용
+            if idempotency_key:
+                existing_after_lock = (
+                    self.db.query(models.ShopTransaction)
+                    .filter(
+                        models.ShopTransaction.user_id == user_id,
+                        models.ShopTransaction.product_id == product_id,
+                        models.ShopTransaction.idempotency_key == idempotency_key,
+                        models.ShopTransaction.status == 'success',
+                    ).first()
+                )
+                if existing_after_lock:
+                    ex_extra = existing_after_lock.extra or {}
+                    return {
+                        "success": True,
+                        "idempotent": True,
+                        "product_id": product_id,
+                        "category": ex_extra.get('category'),
+                        "gold_before": ex_extra.get('gold_before'),
+                        "gold_delta": ex_extra.get('gold_delta') or ex_extra.get('granted_gold') or 0,
+                        "gold_after": self.db.query(models.User).filter(models.User.id == user_id).first().gold_balance if self.db.query(models.User).filter(models.User.id == user_id).first() else None,
+                        "transaction_id": existing_after_lock.id,
+                        "idempotency_key": idempotency_key,
+                        "receipt_code": existing_after_lock.receipt_code,
+                    }
+
+            p_extra = getattr(product, 'extra', {}) or {}
+            category = p_extra.get('category') or 'item'
+            limit_once = bool(p_extra.get('limit_once'))
+
+            # limit_once 재구매 차단
+            if limit_once:
+                prior = (
+                    self.db.query(models.ShopTransaction)
+                    .filter(
+                        models.ShopTransaction.user_id == user_id,
+                        models.ShopTransaction.product_id == product_id,
+                        models.ShopTransaction.status == 'success',
+                    ).first()
+                )
+                if prior:
+                    return {"success": False, "message": "이미 1회 한정 상품을 구매했습니다.", "limit_once": True}
+
+            # 사용자 행 FOR UPDATE (Postgres) - SQLAlchemy ORM 단순 잠금 (raw text 사용 가능)
+            user_obj = self.db.query(models.User).filter(models.User.id == user_id).with_for_update(nowait=False).first()
+            if not user_obj:
+                return {"success": False, "message": "사용자 없음"}
+            gold_before = getattr(user_obj, 'gold_balance', 0) or 0
+
+            # 카테고리 분기
+            if category == 'conversion':  # EXTERNAL_STUB: 외부 포인트 차감/정산은 외부 시스템 처리. 내부는 granted_gold 증가 기록만.
+                granted_gold = int(p_extra.get('gold_out') or product.price)
+                # 증가
+                user_obj.gold_balance = gold_before + granted_gold
+                gold_delta = granted_gold
+                tx_extra = {
+                    "category": "conversion",
+                    "source_points": p_extra.get('source_points'),
+                    "granted_gold": granted_gold,
+                    "conversion": True,
+                    "gold_before": gold_before,
+                    "gold_delta": gold_delta,
+                }
+                kind = 'gold'
+                # P0 SettlementService 호출(해시/서명) - 외부 차감은 아직 Stub
+                try:
+                    secret = getattr(settings, 'PAYMENT_WEBHOOK_SECRET', None) or getattr(settings, 'JWT_SECRET_KEY', 'stub-secret')
+                    settle = SettlementService(hmac_secret=secret)
+                    settle_res = settle.settle_conversion(
+                        user_id=user_id,
+                        product_id=product_id,
+                        amount=product.price,
+                        quantity=1,
+                        kind=kind,
+                        receipt_code="PENDING",  # 실제 receipt_code 생성 전 프리뷰용(최종 tx 객체에 다시 채움)
+                    )
+                    tx_extra['settlement_status'] = settle_res.status
+                    tx_extra['external_reference'] = settle_res.external_reference
+                    # receipt_code 실제 생성 후 integrity_hash 재계산 위해 임시 저장
+                    pending_integrity_hash = settle_res.integrity_hash
+                    pending_signature = settle_res.receipt_signature
+                except Exception:  # pragma: no cover
+                    pending_integrity_hash = None
+                    pending_signature = None
+            else:
+                # item: gold 차감 필요 (price 만큼 소모)
+                price = int(product.price)
+                if gold_before < price:
+                    return {"success": False, "message": "GOLD 부족", "required": price, "gold_balance": gold_before}
+                user_obj.gold_balance = gold_before - price
+                gold_delta = -price
+                effect = p_extra.get('effect') or p_extra.get('code') or p_extra.get('effect_code')
+                tx_extra = {
+                    "category": "item",
+                    "effect": effect,
+                    "stub": True,
+                    "limit_once": limit_once,
+                    "gold_before": gold_before,
+                    "gold_delta": gold_delta,
+                }
+                kind = 'item'
+
+            receipt_code = uuid.uuid4().hex[:16]
+            tx = models.ShopTransaction(
+            user_id=user_id,
+            product_id=product_id,
+            kind=kind,
+            quantity=1,
+            unit_price=product.price,
+            amount=product.price,
+            payment_method='gold',
+            status='success',
+            receipt_code=receipt_code,
+            idempotency_key=idempotency_key,
+            extra=tx_extra,
+            )
+            # conversion 해시/서명 실제 receipt_code 기반 재계산 (임시 단계: P0)
+            if category == 'conversion':
+                try:
+                    secret2 = getattr(settings, 'PAYMENT_WEBHOOK_SECRET', None) or getattr(settings, 'JWT_SECRET_KEY', 'stub-secret')
+                    settle2 = SettlementService(hmac_secret=secret2)
+                    final_res = settle2.settle_conversion(
+                        user_id=user_id,
+                        product_id=product_id,
+                        amount=product.price,
+                        quantity=1,
+                        kind=kind,
+                        receipt_code=receipt_code,
+                    )
+                    tx.integrity_hash = final_res.integrity_hash
+                    tx.receipt_signature = final_res.receipt_signature
+                    tx.extra = {**(tx.extra or {}), "integrity_hash": final_res.integrity_hash, "receipt_signature": final_res.receipt_signature}
+                except Exception:  # pragma: no cover
+                    pass
+            self.db.add(tx)
+            action_payload = {
+                "product_id": product_id,
+                "category": category,
+                "gold_before": gold_before,
+                "gold_delta": gold_delta,
+                "gold_after": user_obj.gold_balance,
+                "idempotency_key": idempotency_key,
+                "receipt_code": receipt_code,
+            }
+            ua = models.UserAction(
+                user_id=user_id,
+                action_type='PURCHASE_GOLD' if category == 'conversion' else 'BUY_PACKAGE',
+                action_data=json.dumps(action_payload, ensure_ascii=False),
+            )
+            self.db.add(ua)
+            self.db.commit()
+        except Exception as e:
+            self.db.rollback()
+            msg = str(e).lower()
+            if idempotency_key and ('uq_shop_tx_user_product_idem' in msg or 'unique constraint' in msg):
+                existing = (
+                    self.db.query(models.ShopTransaction)
+                    .filter(
+                        models.ShopTransaction.user_id == user_id,
+                        models.ShopTransaction.product_id == product_id,
+                        models.ShopTransaction.idempotency_key == idempotency_key,
+                        models.ShopTransaction.status == 'success',
+                    ).first()
+                )
+                if existing:
+                    ex_extra = existing.extra or {}
+                    return {
+                        "success": True,
+                        "idempotent": True,
+                        "product_id": product_id,
+                        "category": ex_extra.get('category') or category,
+                        "gold_before": ex_extra.get('gold_before'),
+                        "gold_delta": ex_extra.get('gold_delta') or ex_extra.get('granted_gold') or 0,
+                        "gold_after": self.db.query(models.User).filter(models.User.id == user_id).first().gold_balance if self.db.query(models.User).filter(models.User.id == user_id).first() else None,
+                        "transaction_id": existing.id,
+                        "idempotency_key": idempotency_key,
+                        "receipt_code": existing.receipt_code,
+                    }
+            return {"success": False, "message": "DB 오류", "detail": str(e)}
+        finally:
+            if lock:
+                lock.release()
+            # Redis pre-lock 해제 (명시 삭제; TTL로도 만료되지만 빠른 재시도 허용)
+            if idempotency_key and pre_locked and redis_client:
+                try:
+                    redis_client.delete(f"shop:idemp:{user_id}:{product_id}:{idempotency_key}")
+                except Exception:
+                    pass
+
+        return {
+            "success": True,
+            "product_id": product_id,
+            "category": category,
+            "gold_before": gold_before,
+            "gold_delta": gold_delta,
+            "gold_after": user_obj.gold_balance,
+            "transaction_id": tx.id,
+            "idempotency_key": idempotency_key,
+            "receipt_code": receipt_code,
+        }
 
     # ----- user settlement/polling -----
     def get_tx_by_receipt_for_user(self, user_id: int, receipt_code: str) -> Optional[models.ShopTransaction]:

@@ -14,7 +14,8 @@ services:
       REDIS_HOST: redis
       REDIS_PORT: 6379
       REDIS_PASSWORD: redis_password
-      JWT_SECRET_KEY: secret_key_for_development_only
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:-secret_key_for_development_only}
+      SECRET_KEY: ${JWT_SECRET_KEY:-secret_key_for_development_only}
       PAYMENT_WEBHOOK_SECRET: dev-webhook-secret
       KAFKA_ENABLED: ${KAFKA_ENABLED:-0}
       KAFKA_BOOTSTRAP_SERVERS: ${KAFKA_BOOTSTRAP_SERVERS:-kafka:9092}
@@ -40,8 +41,6 @@ services:
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
-      interval: 15s
-      timeout: 5s
       retries: 5
     networks:
       ccnet:
@@ -60,6 +59,10 @@ services:
         reservations:
           memory: 2G
     environment:
+      REDIS_PASSWORD: redis_password
+      # JWT/APP Secret (로테이션: .env.* 파일에서 JWT_SECRET_KEY 정의, 없으면 fallback)
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:-secret_key_for_development_only}
+      SECRET_KEY: ${JWT_SECRET_KEY:-secret_key_for_development_only}
       NEXT_PUBLIC_API_URL: "${NEXT_PUBLIC_API_URL:-http://localhost:8000}"
       NEXT_PUBLIC_API_ORIGIN: "${NEXT_PUBLIC_API_ORIGIN:-http://localhost:8000}"
       NEXT_PUBLIC_API_URL_INTERNAL: "${NEXT_PUBLIC_API_URL_INTERNAL:-http://backend:8000}"

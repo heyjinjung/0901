@@ -42,9 +42,15 @@ export type ShopBuyPayload = {
   metadata?: Record<string, any>;
 };
 
-export async function buyProduct(payload: ShopBuyPayload) {
-  return await apiRequest('/api/shop/buy', {
+export async function buyProduct(payload: ShopBuyPayload & { idempotency_key?: string }) {
+  // Unified purchase 엔드포인트로 전환: 서버는 product_id 와 (선택) idempotency_key만 필요
+  const { product_id } = payload;
+  const body = {
+    product_id,
+    idempotency_key: payload.idempotency_key || undefined,
+  };
+  return await apiRequest('/api/shop/purchase', {
     method: 'POST',
-    body: JSON.stringify(payload)
+    body: JSON.stringify(body)
   });
 }

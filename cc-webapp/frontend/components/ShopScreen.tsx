@@ -289,10 +289,10 @@ export function ShopScreen({
 
     try {
       const res: any = await withReconcile(async (idemKey: string) =>
-        api.post('shop/buy', { item_id: item.id, price: finalPrice }, { headers: { 'X-Idempotency-Key': idemKey } })
+        api.post('shop/purchase', { product_id: item.id, idempotency_key: idemKey })
       );
       // 서버 응답에 new balance가 있으면 즉시 전역 프로필에 병합(시각적 지연 최소화)
-      const newBal = res?.new_balance ?? res?.balance ?? res?.gold ?? res?.gold_balance ?? res?.cyber_token_balance;
+      const newBal = res?.gold_after ?? res?.new_balance ?? res?.balance ?? res?.gold ?? res?.gold_balance;
       if (typeof newBal === 'number' && Number.isFinite(newBal)) {
         mergeProfile(dispatch, { goldBalance: Number(newBal) });
       }

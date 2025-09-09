@@ -3256,6 +3256,49 @@
         }
       }
     },
+    "/api/shop/purchase": {
+      "post": {
+        "tags": [
+          "Shop",
+          "Shop"
+        ],
+        "summary": "Purchase Item",
+        "description": "Purchase shop item using user's gold tokens",
+        "operationId": "purchase_shop_item_api_shop_purchase_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ShopPurchaseRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShopPurchaseResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/shop/limited-packages": {
       "get": {
         "tags": [
@@ -3365,49 +3408,6 @@
             "content": {
               "application/json": {
                 "schema": {}
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/shop/purchase": {
-      "post": {
-        "tags": [
-          "Shop",
-          "Shop"
-        ],
-        "summary": "Purchase Item",
-        "description": "Purchase shop item using user's gold tokens",
-        "operationId": "purchase_shop_item_api_shop_purchase_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ShopPurchaseRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ShopPurchaseResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
               }
             }
           }
@@ -3896,52 +3896,6 @@
             "HTTPBearer": []
           }
         ]
-      }
-    },
-    "/api/streak/next-reward": {
-      "get": {
-        "tags": [
-          "Streaks"
-        ],
-        "summary": "Next Reward",
-        "operationId": "next_reward_api_streak_next_reward_get",
-        "security": [
-          {
-            "HTTPBearer": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "action_type",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "default": "SLOT_SPIN",
-              "title": "Action Type"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
       }
     },
     "/api/streak/history": {
@@ -6232,13 +6186,60 @@
         ]
       }
     },
+    "/api/games/crash/cashout": {
+      "post": {
+        "tags": [
+          "Games"
+        ],
+        "summary": "Cashout Crash Bet",
+        "description": "크래시 게임 수동 캐시아웃\n- 진행 중인 게임에서 사용자가 원하는 시점에 캐시아웃\n- Redis 또는 DB에서 게임 세션 상태 확인",
+        "operationId": "cashout_crash_bet_api_games_crash_cashout_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrashCashoutRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CrashCashoutResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
     "/api/games/stats/me": {
       "get": {
         "tags": [
           "Games"
         ],
         "summary": "Get My Authoritative Game Stats",
-        "description": "현재 로그인 사용자에 대한 서버 권위 Crash GameStats.\n\nuser_game_stats 테이블 row 없으면 생성 후 반환. (MVP: crash 전용)\nTODO: 멀티 게임 타입 확장 시 game_type 파라미터 도입.",
+        "description": "현재 로그인 사용자에 대한 서버 권위 게임 통계 (Crash + 슬롯 + 가챠 + RPS 통합).\n\nuser_game_stats 테이블 (Crash 전용) + user_actions 테이블 (슬롯/가챠/RPS 등) 통합 조회.",
         "operationId": "get_my_authoritative_game_stats_api_games_stats_me_get",
         "responses": {
           "200": {
@@ -9225,6 +9226,64 @@
         ],
         "title": "CrashBetResponse",
         "description": "크래시 게임 베팅 응답 모델"
+      },
+      "CrashCashoutRequest": {
+        "properties": {
+          "game_id": {
+            "type": "string",
+            "title": "Game Id"
+          },
+          "multiplier": {
+            "type": "number",
+            "title": "Multiplier"
+          }
+        },
+        "type": "object",
+        "required": [
+          "game_id",
+          "multiplier"
+        ],
+        "title": "CrashCashoutRequest",
+        "description": "크래시 게임 수동 캐시아웃 요청 모델"
+      },
+      "CrashCashoutResponse": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success"
+          },
+          "game_id": {
+            "type": "string",
+            "title": "Game Id"
+          },
+          "cashout_multiplier": {
+            "type": "number",
+            "title": "Cashout Multiplier"
+          },
+          "win_amount": {
+            "type": "integer",
+            "title": "Win Amount"
+          },
+          "balance": {
+            "type": "integer",
+            "title": "Balance"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          }
+        },
+        "type": "object",
+        "required": [
+          "success",
+          "game_id",
+          "cashout_multiplier",
+          "win_amount",
+          "balance",
+          "message"
+        ],
+        "title": "CrashCashoutResponse",
+        "description": "크래시 게임 수동 캐시아웃 응답 모델"
       },
       "ElevateRequest": {
         "properties": {
@@ -12777,17 +12836,6 @@
               }
             ],
             "title": "Ttl Seconds"
-          },
-          "next_reward": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Next Reward"
           }
         },
         "type": "object",
@@ -12847,6 +12895,113 @@
         ],
         "title": "Token",
         "description": "토큰 응답 스키마"
+      },
+      "UnifiedPurchaseRequest": {
+        "properties": {
+          "product_id": {
+            "type": "string",
+            "title": "Product Id"
+          },
+          "idempotency_key": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Idempotency Key",
+            "description": "멱등성 키"
+          }
+        },
+        "type": "object",
+        "required": [
+          "product_id"
+        ],
+        "title": "UnifiedPurchaseRequest"
+      },
+      "UnifiedPurchaseResponse": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success"
+          },
+          "product_id": {
+            "type": "string",
+            "title": "Product Id"
+          },
+          "category": {
+            "type": "string",
+            "title": "Category"
+          },
+          "gold_before": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Gold Before"
+          },
+          "gold_delta": {
+            "type": "integer",
+            "title": "Gold Delta"
+          },
+          "gold_after": {
+            "type": "integer",
+            "title": "Gold After"
+          },
+          "transaction_id": {
+            "type": "integer",
+            "title": "Transaction Id"
+          },
+          "idempotency_key": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Idempotency Key"
+          },
+          "receipt_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Receipt Code"
+          },
+          "idempotent": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Idempotent"
+          }
+        },
+        "type": "object",
+        "required": [
+          "success",
+          "product_id",
+          "category",
+          "gold_delta",
+          "gold_after",
+          "transaction_id"
+        ],
+        "title": "UnifiedPurchaseResponse"
       },
       "UpdateUserRankRequest": {
         "properties": {
@@ -13860,6 +14015,16 @@
             "type": "integer",
             "title": "Experience",
             "default": 0
+          },
+          "experience_points": {
+            "type": "integer",
+            "title": "Experience Points",
+            "default": 0
+          },
+          "level": {
+            "type": "integer",
+            "title": "Level",
+            "default": 1
           },
           "max_experience": {
             "type": "integer",

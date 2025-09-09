@@ -1,0 +1,42 @@
+name: OpenAPI Drift Check
+
+on:
+  push:
+    paths:
+      - 'cc-webapp/backend/app/**'
+      - '.github/workflows/openapi-drift.yml'
+      - 'openapi_drift.ps1'
+  pull_request:
+    paths:
+      - 'cc-webapp/backend/app/**'
+      - '.github/workflows/openapi-drift.yml'
+      - 'openapi_drift.ps1'
+
+jobs:
+  drift:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install backend deps
+        working-directory: cc-webapp/backend
+        run: |
+          pip install -r requirements.txt || true
+      - name: Run export & drift script
+        run: |
+          pwsh ./openapi_drift.ps1
+      - name: Show change-log
+        if: always()
+        run: |
+          if [ -f docs/change-log.json ]; then cat docs/change-log.json; fi
+      - name: PR Comment (drift)
+        if: github.event_name == 'pull_request'
+        uses: peter-evans/create-or-update-comment@v3
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            OpenAPI drift check 완료. 최신 change-log.json 참고.
+            Hash 비교 및 diff 항목은 워크플로 로그를 확인하세요.

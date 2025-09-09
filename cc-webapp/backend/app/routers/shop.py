@@ -70,6 +70,22 @@ class BuyReceipt(BaseModel):
     item_name: Optional[str] = None
     reason_code: Optional[str] = None
 
+class UnifiedPurchaseRequest(BaseModel):
+    product_id: str
+    idempotency_key: Optional[str] = Field(None, description="멱등성 키")
+
+class UnifiedPurchaseResponse(BaseModel):
+    success: bool
+    product_id: str
+    category: str
+    gold_before: Optional[int] = None
+    gold_delta: int
+    gold_after: int
+    transaction_id: int
+    idempotency_key: Optional[str] = None
+    receipt_code: Optional[str] = None
+    idempotent: Optional[bool] = None
+
 from ..services.shop_service import ShopService
 from ..services.catalog_service import CatalogService
 from sqlalchemy.orm import Session
@@ -99,8 +115,14 @@ try:
         "구매 시도/성공/실패 카운터",
         ["flow", "result", "reason"],
     )
+    PURCHASE_IDEMP_COUNTER = Counter(
+        "purchase_idempotency_total",
+        "멱등 처리 현황 카운터",
+        ["flow", "state"],  # state: new|reuse|in_progress
+    )
 except Exception:  # pragma: no cover - 라이브러리 미존재시 무시
     PURCHASE_COUNTER = None
+    PURCHASE_IDEMP_COUNTER = None
 
 def _metric_inc(flow: str, result: str, reason: str | None = None):  # helper
     if PURCHASE_COUNTER:
@@ -225,6 +247,61 @@ def admin_restore_product(product_id: str, db: Session = Depends(get_db), curren
     p.deleted_at = None
     db.commit()
     return {"restored": True}
+
+
+@router.post(
+    "/purchase",
+    response_model=UnifiedPurchaseResponse,
+    summary="단일화폐 GOLD 상점 구매(conversion / item stub)",
+    description=(
+        "Unified Purchase 엔드포인트.\n\n"
+        "카테고리: product.extra.category 값이 'conversion' 이면 외부 포인트 → GOLD 전환 시나리오입니다.\n"
+        "이 때 내부 시스템은 외부 포인트 차감/정산을 수행하지 않고 GOLD 증가만 기록하는 EXTERNAL_STUB 모드이며, 실제 정산/차감은 외부 정산 Gateway 나 별도 Settlement 서비스가 책임집니다.\n"
+        "item 카테고리는 GOLD 차감 후 효과 적용을 지연(stub) 처리합니다. effect 적용은 별도 비동기/외부 시스템(예: 인벤토리/버프 서비스)에서 확정 후 후속 브로드캐스트 예정입니다.\n\n"
+        "Idempotency: idempotency_key 를 제공하면 (user_id, product_id, idempotency_key) 조합으로 성공 트랜잭션이 이미 존재할 경우 동일 응답을 재구성합니다.\n"
+        "멀티 인스턴스 레이스 방어: Redis SET NX (60s TTL) 선점 → 프로세스 인메모리 락 → DB UNIQUE 제약 3단계로 경쟁 조건을 최소화합니다. IN_PROGRESS 는 선점 중 다른 성공 기록이 아직 커밋되지 않은 짧은 구간을 나타냅니다.\n"
+        "limit_once 상품(extra.limit_once=true)은 최초 1회만 구매 가능합니다.\n"
+        "응답 gold_delta 는 conversion 시 +, item 시 - 값을 가집니다."
+    ),
+)
+async def unified_purchase(req: UnifiedPurchaseRequest, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    svc = ShopService(db)
+    result = svc.purchase_product(
+        user_id=current_user.id,
+        product_id=req.product_id,
+        idempotency_key=req.idempotency_key,
+    )
+    # 멱등/IN_PROGRESS 메트릭
+    try:  # best-effort
+        if PURCHASE_IDEMP_COUNTER and req.idempotency_key:
+            if result.get('idempotent'):
+                PURCHASE_IDEMP_COUNTER.labels(flow="unified", state="reuse").inc()
+            elif result.get('message') == 'IN_PROGRESS':
+                PURCHASE_IDEMP_COUNTER.labels(flow="unified", state="in_progress").inc()
+            else:
+                # success or failure but not reuse/in_progress
+                PURCHASE_IDEMP_COUNTER.labels(flow="unified", state="new").inc()
+    except Exception:
+        pass
+    if not result.get('success'):
+        # IN_PROGRESS 는 409 처리로 클라이언트 재시도 유도
+        if result.get('message') == 'IN_PROGRESS':
+            raise HTTPException(status_code=409, detail='IN_PROGRESS')
+        raise HTTPException(status_code=400, detail=result.get('message') or '구매 실패')
+    # 전역동기화: 프로필 변경 브로드캐스트(골드)
+    try:
+        from .realtime import broadcast_profile_update, broadcast_purchase_update
+        try:
+            await broadcast_profile_update(current_user.id, {"gold_balance": result.get('gold_after')})
+        except Exception:
+            pass
+        try:
+            await broadcast_purchase_update(current_user.id, status='success', product_id=req.product_id, amount=result.get('gold_delta'))
+        except Exception:
+            pass
+    except Exception:
+        pass
+    return UnifiedPurchaseResponse(**result)
 
 
 @router.get("/limited-packages", response_model=List[LimitedPackageOut], summary="List active limited packages (gold)")

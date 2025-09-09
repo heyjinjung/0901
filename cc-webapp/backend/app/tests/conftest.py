@@ -3,6 +3,8 @@ import os, sys, pytest
 # Settings/import 이전에 환경 변수를 강제로 덮어써서 lifespan 초기화 중 대기 제거
 os.environ["KAFKA_ENABLED"] = "0"
 os.environ["CLICKHOUSE_ENABLED"] = "0"
+# 테스트에서 고정 초대코드 필요 (auth_token 픽스처가 5858 사용)
+os.environ.setdefault("DEFAULT_INVITE_CODE", "5858")
 # 스타트업 스키마 드리프트 검사 비활성화(테스트 본문에서 별도 가드로 검증)
 os.environ["DISABLE_SCHEMA_DRIFT_GUARD"] = "1"
 
@@ -96,28 +98,12 @@ def _ensure_schema():
 
 	try:
 		_dialect = engine.url.get_backend_name()
-<<<<<<< HEAD
-		# Postgres: entrypoint에서 이미 alembic upgrade head 수행 → 테스트에서는 기본 skip
-		# 필요 시 TEST_FORCE_ALEMBIC=1 로 강제 실행
-		if _dialect == "postgresql":
-			if os.getenv("TEST_FORCE_ALEMBIC", "0") == "1":
-				from alembic.config import Config
-				from alembic import command
-				cfg = Config("alembic.ini")
-				command.upgrade(cfg, "head")
-		else:
-			# SQLite 등에서는 간단히 head까지 올려 테스트 스키마 보장
-=======
-
-		# Postgres에서는 컨테이너 entrypoint에서 이미 upgrade head가 수행됨.
-		# 테스트 중에는 잠재적 락/경합을 피하기 위해 기본적으로 Alembic upgrade를 건너뜀.
-		# 강제 필요 시 TEST_FORCE_ALEMBIC=1로 재활성화.
+		# Postgres: 기본적으로 entrypoint에서 수행되었다고 가정하여 upgrade skip.
+		# TEST_FORCE_ALEMBIC=1 설정 시에만 head로 올림. SQLite 등은 항상 upgrade 수행.
 		do_upgrade = True
 		if _dialect == "postgresql":
 			do_upgrade = os.getenv("TEST_FORCE_ALEMBIC", "0") == "1"
-
 		if do_upgrade:
->>>>>>> copilot/vscode1756626445491
 			from alembic.config import Config
 			from alembic import command
 			cfg = Config("alembic.ini")

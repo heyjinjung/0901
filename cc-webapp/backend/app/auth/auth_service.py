@@ -43,11 +43,13 @@ from sqlalchemy import and_
 
 from ..database import get_db
 from ..models import auth_models, token_blacklist
+from ..core.config import settings
 
 logger = logging.getLogger("unified_auth")
 
 # ===== 환경 설정 =====
-JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY", "casino-club-secret-key-2024")
+# settings.SECRET_KEY (docker-compose: SECRET_KEY/JWT_SECRET_KEY 동기화)
+JWT_SECRET_KEY = settings.SECRET_KEY
 JWT_ALGORITHM = os.getenv("JWT_ALGORITHM", "HS256")
 JWT_EXPIRE_MINUTES = int(os.getenv("JWT_EXPIRE_MINUTES", "60"))
 REFRESH_TOKEN_EXPIRE_DAYS = int(os.getenv("REFRESH_TOKEN_EXPIRE_DAYS", "30"))
