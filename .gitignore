@@ -241,3 +241,5 @@ cc-webapp/frontend/temp_openapi_live.json
 
 # Generated patch bundles
 patches/
+# Local python venv
+cc-webapp/backend/venv_311/
