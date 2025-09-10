@@ -1,0 +1,3902 @@
+{
+  "generated_at": "2025-09-10T08:55:16",
+  "drift_meta": {
+    "openapi_drift": false,
+    "current_hash": "acee68d46c2e4da20ae0113082649b610032fb26060dc7d118bac5de9d0fc3cf",
+    "prev_hash": "acee68d46c2e4da20ae0113082649b610032fb26060dc7d118bac5de9d0fc3cf"
+  },
+  "records": [
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/stats_details_schema.md",
+      "status": "CORE",
+      "red_hits": [],
+      "yellow_hits": [
+        "초안"
+      ],
+      "green_hits": [
+        "overall_max_win",
+        "win_rate"
+      ],
+      "reasons": [
+        "최근/추론 날짜 + GREEN 키워드 ≥2 + RED=0",
+        "점수 기반 CORE 승격"
+      ],
+      "suggestions": [
+        "Canonical 표준으로 CURRENT_STANDARD.md 통합 권장 (변경 시 Change Control)"
+      ],
+      "mtime": "2025-09-09T12:21:24",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 9,
+      "core_hint": true,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/2025-09-07_중요이슈_해결진행상황.md",
+      "status": "GREEN",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [
+        "overall_max_win",
+        "win_rate"
+      ],
+      "reasons": [
+        "파일명 날짜 최근(≤45d)",
+        "최근/추론 날짜 + GREEN 키워드 ≥2 + RED=0"
+      ],
+      "suggestions": [
+        "Canonical 후보 - CURRENT_STANDARD.md 병합 검토"
+      ],
+      "mtime": "2025-09-09T09:03:53",
+      "date_inferred": "2025-09-07T00:00:00",
+      "openapi_related": false,
+      "score": 4,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/2025-09-09_게임통계_풀스택동기화_완성.md",
+      "status": "GREEN",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [
+        "normalized",
+        "overall_max_win",
+        "win_rate"
+      ],
+      "reasons": [
+        "파일명 날짜 최근(≤45d)",
+        "최근/추론 날짜 + GREEN 키워드 ≥2 + RED=0"
+      ],
+      "suggestions": [
+        "Canonical 후보 - CURRENT_STANDARD.md 병합 검토"
+      ],
+      "mtime": "2025-09-09T09:03:53",
+      "date_inferred": "2025-09-09T00:00:00",
+      "openapi_related": false,
+      "score": 4,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/E2E_STATS_PARITY_PLAN.md",
+      "status": "GREEN",
+      "red_hits": [],
+      "yellow_hits": [
+        "임시"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "YELLOW 키워드 존재",
+        "점수 기준 GREEN 승격"
+      ],
+      "suggestions": [
+        "Canonical 후보 - CURRENT_STANDARD.md 병합 검토"
+      ],
+      "mtime": "2025-09-09T09:03:53",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 4,
+      "core_hint": true,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/STATUS_PURCHASE_SECURITY.md",
+      "status": "GREEN",
+      "red_hits": [],
+      "yellow_hits": [
+        "TODO",
+        "중복"
+      ],
+      "green_hits": [
+        "Idempotency"
+      ],
+      "reasons": [
+        "GREEN & YELLOW 혼재",
+        "점수 기준 GREEN 승격"
+      ],
+      "suggestions": [
+        "Canonical 후보 - CURRENT_STANDARD.md 병합 검토"
+      ],
+      "mtime": "2025-09-09T09:03:54",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 5,
+      "core_hint": true,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/api docs/20250823_MIGRATION_AND_WARNINGS_PLAN.md",
+      "status": "GREEN",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [
+        "파일명 날짜 최근(≤45d)",
+        "점수 기준 GREEN 승격"
+      ],
+      "suggestions": [
+        "Canonical 후보 - CURRENT_STANDARD.md 병합 검토"
+      ],
+      "mtime": "2025-09-09T09:03:56",
+      "date_inferred": "2025-08-23T00:00:00",
+      "openapi_related": true,
+      "score": 5,
+      "core_hint": true,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/api docs/DATABASE_MIGRATION_GUIDE.md",
+      "status": "GREEN",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [
+        "점수 기준 GREEN 승격"
+      ],
+      "suggestions": [
+        "Canonical 후보 - CURRENT_STANDARD.md 병합 검토"
+      ],
+      "mtime": "2025-09-09T09:03:56",
+      "date_inferred": null,
+      "openapi_related": true,
+      "score": 5,
+      "core_hint": true,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/011.security_deployment_ops_guide.md",
+      "status": "GREEN",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [
+        "점수 기준 GREEN 승격"
+      ],
+      "suggestions": [
+        "Canonical 후보 - CURRENT_STANDARD.md 병합 검토"
+      ],
+      "mtime": "2025-09-09T09:04:17",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 5,
+      "core_hint": true,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/10_onboarding_en.md",
+      "status": "GREEN",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [
+        "점수 기준 GREEN 승격"
+      ],
+      "suggestions": [
+        "Canonical 후보 - CURRENT_STANDARD.md 병합 검토"
+      ],
+      "mtime": "2025-09-09T09:04:17",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 5,
+      "core_hint": true,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/18_security_authentication_en.md",
+      "status": "GREEN",
+      "red_hits": [],
+      "yellow_hits": [
+        "draft"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "YELLOW 키워드 존재",
+        "점수 기준 GREEN 승격"
+      ],
+      "suggestions": [
+        "Canonical 후보 - CURRENT_STANDARD.md 병합 검토"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 4,
+      "core_hint": true,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/2025010.data_driven_onboarding_ops_checklist.md",
+      "status": "GREEN",
+      "red_hits": [],
+      "yellow_hits": [
+        "임시"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "YELLOW 키워드 존재",
+        "점수 기준 GREEN 승격"
+      ],
+      "suggestions": [
+        "Canonical 후보 - CURRENT_STANDARD.md 병합 검토"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": "2025-01-01T00:00:00",
+      "openapi_related": false,
+      "score": 4,
+      "core_hint": true,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/SYSTEM_ARCHITECTURE.md",
+      "status": "GREEN",
+      "red_hits": [],
+      "yellow_hits": [
+        "임시"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "YELLOW 키워드 존재",
+        "점수 기준 GREEN 승격"
+      ],
+      "suggestions": [
+        "Canonical 후보 - CURRENT_STANDARD.md 병합 검토"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 4,
+      "core_hint": true,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/SYSTEM_ARCHITECTURE_SUMMARY.md",
+      "status": "GREEN",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [
+        "점수 기준 GREEN 승격"
+      ],
+      "suggestions": [
+        "Canonical 후보 - CURRENT_STANDARD.md 병합 검토"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 5,
+      "core_hint": true,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/SYSTEM_ARCHITECTURE_SUMMARY_PLAN.md",
+      "status": "GREEN",
+      "red_hits": [],
+      "yellow_hits": [
+        "중복"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "YELLOW 키워드 존재",
+        "점수 기준 GREEN 승격"
+      ],
+      "suggestions": [
+        "Canonical 후보 - CURRENT_STANDARD.md 병합 검토"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 4,
+      "core_hint": true,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/.github/instructions/1.instructions.md",
+      "status": "RED",
+      "red_hits": [
+        "/api/shop/buy"
+      ],
+      "yellow_hits": [
+        "중복",
+        "초안"
+      ],
+      "green_hits": [
+        "Idempotency"
+      ],
+      "reasons": [
+        "RED 키워드 1개 탐지"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려",
+        "레거시 엔드포인트/공식 업데이트"
+      ],
+      "mtime": "2025-09-09T09:03:55",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -3,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/2025-09-06_온보딩_운영_누적학습_요약.md",
+      "status": "RED",
+      "red_hits": [
+        "deprecated"
+      ],
+      "yellow_hits": [
+        "임시",
+        "미검증",
+        "중복"
+      ],
+      "green_hits": [
+        "Unified Purchase",
+        "Idempotency",
+        "overall_max_win",
+        "win_rate"
+      ],
+      "reasons": [
+        "RED 키워드 1개 탐지",
+        "파일명 날짜 최근(≤45d)"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려",
+        "레거시 엔드포인트/공식 업데이트"
+      ],
+      "mtime": "2025-09-09T12:12:42",
+      "date_inferred": "2025-09-06T00:00:00",
+      "openapi_related": false,
+      "score": -3,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/API_MAPPING.md",
+      "status": "RED",
+      "red_hits": [
+        "deprecated"
+      ],
+      "yellow_hits": [
+        "임시",
+        "TODO",
+        "중복"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "RED 키워드 1개 탐지"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려",
+        "레거시 엔드포인트/공식 업데이트"
+      ],
+      "mtime": "2025-09-09T09:03:53",
+      "date_inferred": null,
+      "openapi_related": true,
+      "score": -3,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/PROJECT_STRUCTURE_GUIDE.md",
+      "status": "RED",
+      "red_hits": [
+        "/api/shop/buy"
+      ],
+      "yellow_hits": [
+        "임시",
+        "미검증",
+        "중복"
+      ],
+      "green_hits": [
+        "Idempotency",
+        "win_rate"
+      ],
+      "reasons": [
+        "RED 키워드 1개 탐지"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려",
+        "레거시 엔드포인트/공식 업데이트"
+      ],
+      "mtime": "2025-09-09T09:03:54",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -3,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/api docs/20250728-가이드001.md",
+      "status": "RED",
+      "red_hits": [
+        "/api/shop/buy"
+      ],
+      "yellow_hits": [
+        "임시",
+        "중복"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "RED 키워드 1개 탐지",
+        "파일명 날짜 최근(≤45d)"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려",
+        "레거시 엔드포인트/공식 업데이트"
+      ],
+      "mtime": "2025-09-09T09:03:56",
+      "date_inferred": "2025-07-28T00:00:00",
+      "openapi_related": true,
+      "score": -3,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/api docs/20250729-가이드006.md",
+      "status": "RED",
+      "red_hits": [
+        "/api/shop/buy"
+      ],
+      "yellow_hits": [
+        "중복",
+        "초안"
+      ],
+      "green_hits": [
+        "Idempotency",
+        "win_rate"
+      ],
+      "reasons": [
+        "RED 키워드 1개 탐지",
+        "파일명 날짜 최근(≤45d)"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려",
+        "레거시 엔드포인트/공식 업데이트"
+      ],
+      "mtime": "2025-09-09T09:03:56",
+      "date_inferred": "2025-07-29T00:00:00",
+      "openapi_related": true,
+      "score": -3,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/api docs/20250808.md",
+      "status": "RED",
+      "red_hits": [
+        "/api/shop/buy",
+        "deprecated"
+      ],
+      "yellow_hits": [
+        "임시",
+        "TODO",
+        "중복",
+        "초안"
+      ],
+      "green_hits": [
+        "Unified Purchase",
+        "Idempotency"
+      ],
+      "reasons": [
+        "RED 키워드 2개 탐지",
+        "파일명 날짜 최근(≤45d)"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려",
+        "레거시 엔드포인트/공식 업데이트"
+      ],
+      "mtime": "2025-09-09T12:16:10",
+      "date_inferred": "2025-08-08T00:00:00",
+      "openapi_related": true,
+      "score": -6,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/api docs/20250808_FLAGS_UPDATE.md",
+      "status": "RED",
+      "red_hits": [
+        "/api/shop/buy"
+      ],
+      "yellow_hits": [
+        "중복"
+      ],
+      "green_hits": [
+        "Idempotency"
+      ],
+      "reasons": [
+        "RED 키워드 1개 탐지",
+        "파일명 날짜 최근(≤45d)"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려",
+        "레거시 엔드포인트/공식 업데이트"
+      ],
+      "mtime": "2025-09-09T09:03:56",
+      "date_inferred": "2025-08-08T00:00:00",
+      "openapi_related": true,
+      "score": -3,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/api docs/20250823_GLOBAL_EVAL_GUIDE.md",
+      "status": "RED",
+      "red_hits": [
+        "/api/shop/buy"
+      ],
+      "yellow_hits": [
+        "중복",
+        "초안"
+      ],
+      "green_hits": [
+        "Idempotency"
+      ],
+      "reasons": [
+        "RED 키워드 1개 탐지",
+        "파일명 날짜 최근(≤45d)"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려",
+        "레거시 엔드포인트/공식 업데이트"
+      ],
+      "mtime": "2025-09-09T09:03:56",
+      "date_inferred": "2025-08-23T00:00:00",
+      "openapi_related": true,
+      "score": -3,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/api docs/20250824-출고체크리스트.md",
+      "status": "RED",
+      "red_hits": [
+        "/api/shop/buy"
+      ],
+      "yellow_hits": [
+        "중복",
+        "초안"
+      ],
+      "green_hits": [
+        "win_rate"
+      ],
+      "reasons": [
+        "RED 키워드 1개 탐지",
+        "파일명 날짜 최근(≤45d)"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려",
+        "레거시 엔드포인트/공식 업데이트"
+      ],
+      "mtime": "2025-09-09T09:03:56",
+      "date_inferred": "2025-08-24T00:00:00",
+      "openapi_related": true,
+      "score": -3,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/api docs/20250841-001.md",
+      "status": "RED",
+      "red_hits": [
+        "/api/shop/buy"
+      ],
+      "yellow_hits": [
+        "임시",
+        "중복",
+        "초안"
+      ],
+      "green_hits": [
+        "Idempotency",
+        "win_rate"
+      ],
+      "reasons": [
+        "RED 키워드 1개 탐지"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려",
+        "레거시 엔드포인트/공식 업데이트"
+      ],
+      "mtime": "2025-09-09T09:03:56",
+      "date_inferred": "2025-01-01T00:00:00",
+      "openapi_related": true,
+      "score": -3,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/api docs/A.md",
+      "status": "RED",
+      "red_hits": [
+        "/api/shop/buy"
+      ],
+      "yellow_hits": [
+        "중복",
+        "정리 필요"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "RED 키워드 1개 탐지"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려",
+        "레거시 엔드포인트/공식 업데이트"
+      ],
+      "mtime": "2025-09-09T09:03:56",
+      "date_inferred": null,
+      "openapi_related": true,
+      "score": -3,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/api docs/API_DUPLICATE_REMOVAL_REPORT.md",
+      "status": "RED",
+      "red_hits": [
+        "deprecated"
+      ],
+      "yellow_hits": [
+        "중복"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "RED 키워드 1개 탐지"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려",
+        "레거시 엔드포인트/공식 업데이트"
+      ],
+      "mtime": "2025-09-09T09:03:56",
+      "date_inferred": null,
+      "openapi_related": true,
+      "score": -3,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/api docs/FRONT_STATE_MAPPING_SPEC.md",
+      "status": "RED",
+      "red_hits": [
+        "/api/shop/buy"
+      ],
+      "yellow_hits": [
+        "중복"
+      ],
+      "green_hits": [
+        "Idempotency",
+        "normalized",
+        "win_rate"
+      ],
+      "reasons": [
+        "RED 키워드 1개 탐지"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려",
+        "레거시 엔드포인트/공식 업데이트"
+      ],
+      "mtime": "2025-09-09T09:03:56",
+      "date_inferred": null,
+      "openapi_related": true,
+      "score": -3,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/cc-webapp/backend/GAME_API_IMPLEMENTATION_GUIDE.md",
+      "status": "RED",
+      "red_hits": [
+        "/api/shop/buy"
+      ],
+      "yellow_hits": [
+        "중복"
+      ],
+      "green_hits": [
+        "Idempotency"
+      ],
+      "reasons": [
+        "RED 키워드 1개 탐지"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려",
+        "레거시 엔드포인트/공식 업데이트"
+      ],
+      "mtime": "2025-09-09T09:03:57",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -3,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/cc-webapp/backend/app/docs/REALTIME_WEBSOCKETS.md",
+      "status": "RED",
+      "red_hits": [
+        "/api/shop/buy",
+        "deprecated"
+      ],
+      "yellow_hits": [
+        "TODO"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "RED 키워드 2개 탐지"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려",
+        "레거시 엔드포인트/공식 업데이트"
+      ],
+      "mtime": "2025-09-09T09:04:01",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -1,
+      "core_hint": true,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/cc-webapp/backend/app/tests/사용자중심.md",
+      "status": "RED",
+      "red_hits": [
+        "deprecated"
+      ],
+      "yellow_hits": [
+        "임시",
+        "TODO",
+        "중복",
+        "정리 필요",
+        "초안",
+        "draft"
+      ],
+      "green_hits": [
+        "Idempotency"
+      ],
+      "reasons": [
+        "RED 키워드 1개 탐지"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려",
+        "레거시 엔드포인트/공식 업데이트"
+      ],
+      "mtime": "2025-09-09T09:04:06",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -3,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/cc-webapp/backend/tests/legacy/README.md",
+      "status": "RED",
+      "red_hits": [],
+      "yellow_hits": [
+        "임시",
+        "중복"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "archive/legacy 경로"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려"
+      ],
+      "mtime": "2025-09-09T09:04:08",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -6,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/archive/local_llm_guide_202507/20_local_llm_implementation_guide.md",
+      "status": "RED",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [
+        "archive/legacy 경로"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -6,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/archive/local_llm_guide_202507/LOCAL_LLM_GUIDE.md",
+      "status": "RED",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [
+        "archive/legacy 경로"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -6,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/archive/system_architecture_202507/01_architecture_en.md",
+      "status": "RED",
+      "red_hits": [
+        "/api/shop/buy"
+      ],
+      "yellow_hits": [
+        "중복"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "archive/legacy 경로",
+        "RED 키워드 1개 탐지"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려",
+        "레거시 엔드포인트/공식 업데이트"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -4,
+      "core_hint": true,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/archive/system_architecture_202507/02_data_personalization_en.md",
+      "status": "RED",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [
+        "archive/legacy 경로"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -6,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/archive/system_architecture_202507/03_emotion_feedback_en.md",
+      "status": "RED",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [
+        "archive/legacy 경로"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려"
+      ],
+      "mtime": "2025-09-09T09:04:19",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -6,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/archive/system_architecture_202507/04_adult_rewards_en.md",
+      "status": "RED",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [
+        "archive/legacy 경로"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려"
+      ],
+      "mtime": "2025-09-09T09:04:19",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -6,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/archive/system_architecture_202507/05_corporate_retention_en.md",
+      "status": "RED",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [
+        "archive/legacy 경로"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려"
+      ],
+      "mtime": "2025-09-09T09:04:19",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -6,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/archive/system_architecture_202507/08_roadmap_en.md",
+      "status": "RED",
+      "red_hits": [],
+      "yellow_hits": [
+        "중복"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "archive/legacy 경로"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려"
+      ],
+      "mtime": "2025-09-09T09:04:19",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -6,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/archive/system_architecture_202507/13-environment-config.md",
+      "status": "RED",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [
+        "archive/legacy 경로"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려"
+      ],
+      "mtime": "2025-09-09T09:04:19",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -6,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/archive/system_architecture_202507/15_ai_assistant_test_guide.md",
+      "status": "RED",
+      "red_hits": [],
+      "yellow_hits": [
+        "임시",
+        "중복"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "archive/legacy 경로"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려"
+      ],
+      "mtime": "2025-09-09T09:04:19",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -6,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/archive/system_architecture_202507/16_CCF2P 통합 환경 설정 스크립트.md",
+      "status": "RED",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [
+        "archive/legacy 경로"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려"
+      ],
+      "mtime": "2025-09-09T09:04:19",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -6,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/archive/system_architecture_202507/17_game.md",
+      "status": "RED",
+      "red_hits": [],
+      "yellow_hits": [
+        "중복"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "archive/legacy 경로"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려"
+      ],
+      "mtime": "2025-09-09T09:04:19",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -6,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/archive/system_architecture_202507/27_async_sync_status_analysis.md",
+      "status": "RED",
+      "red_hits": [],
+      "yellow_hits": [
+        "중복"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "archive/legacy 경로"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려"
+      ],
+      "mtime": "2025-09-09T09:04:19",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -6,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/archive/system_architecture_202507/AI_BACKEND_STANDARDIZATION_PROMPT.md",
+      "status": "RED",
+      "red_hits": [],
+      "yellow_hits": [
+        "중복"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "archive/legacy 경로"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려"
+      ],
+      "mtime": "2025-09-09T09:04:19",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -6,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/archive/system_architecture_202507/ARCHIVE_LIST.md",
+      "status": "RED",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [
+        "archive/legacy 경로"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려"
+      ],
+      "mtime": "2025-09-09T09:04:19",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -6,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/archive/system_architecture_202507/PROJECT_ARCHITECTURE_DIAGRAMS.md",
+      "status": "RED",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [
+        "archive/legacy 경로"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려"
+      ],
+      "mtime": "2025-09-09T09:04:19",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -1,
+      "core_hint": true,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/archive/system_architecture_202507/PROJECT_ROADMAP.md",
+      "status": "RED",
+      "red_hits": [],
+      "yellow_hits": [
+        "중복"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "archive/legacy 경로"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려"
+      ],
+      "mtime": "2025-09-09T09:04:19",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -6,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/archive/system_architecture_202507/README.md",
+      "status": "RED",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [
+        "archive/legacy 경로"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려"
+      ],
+      "mtime": "2025-09-09T09:04:19",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -6,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/archive/system_architecture_202507/REWARD_STRATEGY_ANALYSIS.md",
+      "status": "RED",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [
+        "archive/legacy 경로"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려"
+      ],
+      "mtime": "2025-09-09T09:04:19",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -6,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/archive/system_architecture_202507/beginner_app_development_guide.md",
+      "status": "RED",
+      "red_hits": [],
+      "yellow_hits": [
+        "중복"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "archive/legacy 경로"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려"
+      ],
+      "mtime": "2025-09-09T09:04:19",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -6,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/archive/system_architecture_202507/current_project_step_by_step.md",
+      "status": "RED",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [
+        "archive/legacy 경로"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려"
+      ],
+      "mtime": "2025-09-09T09:04:19",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -6,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/archive/system_architecture_202507/본사연계_최적수익율_보고서.md",
+      "status": "RED",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [
+        "archive/legacy 경로"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려"
+      ],
+      "mtime": "2025-09-09T09:04:19",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -6,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/archive/system_architecture_202507/신규유저_수익성_분석.md",
+      "status": "RED",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [
+        "archive/legacy 경로"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려"
+      ],
+      "mtime": "2025-09-09T09:04:19",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -6,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/archive/system_architecture_202507/유저심리_기반_수익개선전략.md",
+      "status": "RED",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [
+        "archive/legacy 경로"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려"
+      ],
+      "mtime": "2025-09-09T09:04:19",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -6,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/archive/system_architecture_202507/유저심리_수익성개선_체크리스트.md",
+      "status": "RED",
+      "red_hits": [],
+      "yellow_hits": [
+        "임시"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "archive/legacy 경로"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려"
+      ],
+      "mtime": "2025-09-09T09:04:19",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -6,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/file-comparison-report.md",
+      "status": "RED",
+      "red_hits": [
+        "deprecated"
+      ],
+      "yellow_hits": [
+        "중복"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "RED 키워드 1개 탐지"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려",
+        "레거시 엔드포인트/공식 업데이트"
+      ],
+      "mtime": "2025-09-09T09:03:54",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -3,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/final.md",
+      "status": "RED",
+      "red_hits": [
+        "/api/shop/buy",
+        "deprecated"
+      ],
+      "yellow_hits": [
+        "임시",
+        "TODO",
+        "미검증",
+        "중복",
+        "초안"
+      ],
+      "green_hits": [
+        "Idempotency"
+      ],
+      "reasons": [
+        "RED 키워드 2개 탐지"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려",
+        "레거시 엔드포인트/공식 업데이트"
+      ],
+      "mtime": "2025-09-09T09:03:54",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -6,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/전역동기화_솔루션.md",
+      "status": "RED",
+      "red_hits": [
+        "deprecated"
+      ],
+      "yellow_hits": [
+        "임시",
+        "중복"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "RED 키워드 1개 탐지"
+      ],
+      "suggestions": [
+        "HISTORY 또는 legacy_specs 디렉토리로 이동 고려",
+        "레거시 엔드포인트/공식 업데이트"
+      ],
+      "mtime": "2025-09-09T09:03:55",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -3,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/.clinerules/clinerules.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:55",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/.clinerules/front.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "중복"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "YELLOW 키워드 존재"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:55",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -1,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/.clinerules/workflows/workflow-fix.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:55",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/.github/instructions/2.instructions.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "임시",
+        "중복"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "YELLOW 키워드 존재"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:55",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -2,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/.github/pull_request_template.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:55",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/.pytest_cache/README.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T11:04:55",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/0909.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "임시",
+        "TODO",
+        "미검증",
+        "중복",
+        "정리 필요",
+        "초안"
+      ],
+      "green_hits": [
+        "Unified Purchase",
+        "Idempotency",
+        "Streak 보상",
+        "normalized",
+        "overall_max_win",
+        "win_rate"
+      ],
+      "reasons": [
+        "최근/추론 날짜 + GREEN 키워드 ≥2 + RED=0",
+        "GREEN 조건 충족 후 강등: RED>=1 또는 YELLOW>=2"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-10T08:46:48",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 2,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/0909데이터베이스.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "중복",
+        "정리 필요",
+        "초안"
+      ],
+      "green_hits": [
+        "Idempotency",
+        "win_rate"
+      ],
+      "reasons": [
+        "최근/추론 날짜 + GREEN 키워드 ≥2 + RED=0",
+        "GREEN 조건 충족 후 강등: RED>=1 또는 YELLOW>=2"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T10:33:10",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 2,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/API_MAPPING_UPDATED.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "초안"
+      ],
+      "green_hits": [
+        "Idempotency"
+      ],
+      "reasons": [
+        "GREEN & YELLOW 혼재"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-10T08:46:48",
+      "date_inferred": null,
+      "openapi_related": true,
+      "score": 1,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/CONTRIBUTING.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:53",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/CURRENT_STANDARD.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "임시",
+        "TODO",
+        "초안"
+      ],
+      "green_hits": [
+        "Idempotency",
+        "overall_max_win",
+        "win_rate"
+      ],
+      "reasons": [
+        "최근/추론 날짜 + GREEN 키워드 ≥2 + RED=0",
+        "GREEN 조건 충족 후 강등: RED>=1 또는 YELLOW>=2"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-10T08:46:48",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 2,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/E2E_PLAYWRIGHT_CONTAINER_RESULT.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:53",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/E2E_TESTING_GUIDE.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "중복"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "YELLOW 키워드 존재"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:53",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -1,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/E2E_failed_tests_20250909.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "초안"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "파일명 날짜 최근(≤45d)",
+        "YELLOW 키워드 존재"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T12:12:42",
+      "date_inferred": "2025-09-09T00:00:00",
+      "openapi_related": false,
+      "score": -1,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/FILE_CONSOLIDATION_REPORT.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "중복"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "YELLOW 키워드 존재"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:53",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -1,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/FINAL_LOGIN_SYSTEM_COMPLETION.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "임시"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "YELLOW 키워드 존재"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:53",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -1,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/PROJECT_COMPLETION_REPORT.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:53",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/PROJECT_INSPECTION_20250807.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [
+        "파일명 날짜 최근(≤45d)"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:53",
+      "date_inferred": "2025-08-07T00:00:00",
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/README-SIMPLE.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:54",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/README.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:54",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/RELEASE_NOTES_DRAFT.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "draft"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "YELLOW 키워드 존재"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:54",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -1,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/SIMPLE_SETUP_GUIDE.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:54",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/alembic_revision_plan_20250909.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "임시",
+        "중복",
+        "초안"
+      ],
+      "green_hits": [
+        "Idempotency"
+      ],
+      "reasons": [
+        "파일명 날짜 최근(≤45d)",
+        "GREEN & YELLOW 혼재"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T12:12:42",
+      "date_inferred": "2025-09-09T00:00:00",
+      "openapi_related": false,
+      "score": -1,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/api docs/20250728-가이드002.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "임시",
+        "TODO"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "파일명 날짜 최근(≤45d)",
+        "YELLOW 키워드 존재"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:56",
+      "date_inferred": "2025-07-28T00:00:00",
+      "openapi_related": true,
+      "score": -2,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/api docs/20250728-가이드003.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [
+        "파일명 날짜 최근(≤45d)"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:56",
+      "date_inferred": "2025-07-28T00:00:00",
+      "openapi_related": true,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/api docs/20250728-가이드004.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "중복"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "파일명 날짜 최근(≤45d)",
+        "YELLOW 키워드 존재"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:56",
+      "date_inferred": "2025-07-28T00:00:00",
+      "openapi_related": true,
+      "score": -1,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/api docs/20250728-가이드005.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [
+        "파일명 날짜 최근(≤45d)"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:56",
+      "date_inferred": "2025-07-28T00:00:00",
+      "openapi_related": true,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/api docs/2025080.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "중복"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "YELLOW 키워드 존재"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:56",
+      "date_inferred": "2025-01-01T00:00:00",
+      "openapi_related": true,
+      "score": -1,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/api docs/20250823-유저지표정의.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [
+        "파일명 날짜 최근(≤45d)"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:56",
+      "date_inferred": "2025-08-23T00:00:00",
+      "openapi_related": true,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/api docs/20250841-002.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "임시",
+        "TODO",
+        "중복"
+      ],
+      "green_hits": [
+        "Idempotency",
+        "normalized"
+      ],
+      "reasons": [
+        "최근/추론 날짜 + GREEN 키워드 ≥2 + RED=0",
+        "GREEN 조건 충족 후 강등: RED>=1 또는 YELLOW>=2"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:56",
+      "date_inferred": "2025-01-01T00:00:00",
+      "openapi_related": true,
+      "score": 2,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/api docs/AUTH_SYSTEM_GUIDE.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:56",
+      "date_inferred": null,
+      "openapi_related": true,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/api docs/CASINO_CLUB_F2P_INTEGRATION_CHECKLIST.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "중복"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "YELLOW 키워드 존재"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:56",
+      "date_inferred": null,
+      "openapi_related": true,
+      "score": -1,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/api docs/DATABASE_CONNECTION_GUIDE.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:56",
+      "date_inferred": null,
+      "openapi_related": true,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/api docs/DATABASE_CONNECTION_TROUBLESHOOTING.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:56",
+      "date_inferred": null,
+      "openapi_related": true,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/api docs/DATABASE_SCRIPTS_CLEANUP_REPORT.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "중복"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "YELLOW 키워드 존재"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:56",
+      "date_inferred": null,
+      "openapi_related": true,
+      "score": -1,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/api docs/DATA_PIPELINE_SPEC.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "TODO",
+        "중복",
+        "초안"
+      ],
+      "green_hits": [
+        "Idempotency"
+      ],
+      "reasons": [
+        "GREEN & YELLOW 혼재"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:56",
+      "date_inferred": null,
+      "openapi_related": true,
+      "score": -1,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/api docs/FRONTEND_ANALYSIS_REPORT.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:56",
+      "date_inferred": null,
+      "openapi_related": true,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/api docs/FRONTEND_LOCAL_DEVELOPMENT_GUIDE.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:56",
+      "date_inferred": null,
+      "openapi_related": true,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/api docs/INVITE_5858_USAGE_REPORT_20250817.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [
+        "파일명 날짜 최근(≤45d)"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:56",
+      "date_inferred": "2025-08-17T00:00:00",
+      "openapi_related": true,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/api docs/KAFKA_OPERATIONS_SOP.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "임시"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "YELLOW 키워드 존재"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:56",
+      "date_inferred": null,
+      "openapi_related": true,
+      "score": -1,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/api docs/PHASE1_API_INTEGRATION_TEST_REPORT.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "중복"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "YELLOW 키워드 존재"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:56",
+      "date_inferred": null,
+      "openapi_related": true,
+      "score": -1,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/api docs/PHASE2_ADMIN_UI_WIRING_REPORT.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:56",
+      "date_inferred": null,
+      "openapi_related": true,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/api docs/PHASE_ROADMAP.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "draft"
+      ],
+      "green_hits": [
+        "Idempotency"
+      ],
+      "reasons": [
+        "GREEN & YELLOW 혼재"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:56",
+      "date_inferred": null,
+      "openapi_related": true,
+      "score": 1,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/api docs/POSTGRESQL_ENTRA_AUTH_SETUP.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:56",
+      "date_inferred": null,
+      "openapi_related": true,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/api docs/REPOSITORY_PATTERN_COMPLETION_REPORT.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "중복"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "YELLOW 키워드 존재"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:56",
+      "date_inferred": null,
+      "openapi_related": true,
+      "score": -1,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/api docs/RISK_REGISTER.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "중복"
+      ],
+      "green_hits": [
+        "Idempotency"
+      ],
+      "reasons": [
+        "GREEN & YELLOW 혼재"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:56",
+      "date_inferred": null,
+      "openapi_related": true,
+      "score": 1,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/cc-webapp/GAME_API_FIX_README.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:56",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/cc-webapp/GAME_API_VALIDATION_FIX_REPORT.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:56",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/cc-webapp/IMPLEMENTATION_SUMMARY.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:56",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/cc-webapp/README.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "draft"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "YELLOW 키워드 존재"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:56",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -1,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/cc-webapp/README_ENV.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:56",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/cc-webapp/RELEASE_NOTES_DRAFT.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:56",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/cc-webapp/backend/.pytest_cache/README.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T10:34:08",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/cc-webapp/backend/DB_FK_DEPENDENCY_GRAPH.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:57",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/cc-webapp/backend/DB_ROLLBACK_STRATEGY_GUIDE.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:57",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/cc-webapp/backend/README.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "임시",
+        "중복"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "YELLOW 키워드 존재"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:57",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -2,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/cc-webapp/backend/app/2025080.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "중복"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "YELLOW 키워드 존재"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:00",
+      "date_inferred": "2025-01-01T00:00:00",
+      "openapi_related": false,
+      "score": -1,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/cc-webapp/backend/app/DEV_WARNINGS_CLEANUP_CHECKLIST.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:00",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/cc-webapp/backend/app/auth/README.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:01",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/cc-webapp/backend/app/migrations_plan/DOUBLE_WRITE_STUB.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:01",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/cc-webapp/backend/app/migrations_plan/README_SHADOW_CUTOVER.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:01",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/cc-webapp/backend/kafka/README_KAFKA.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:07",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/cc-webapp/backend/tests/auth_test_guide.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "중복"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "YELLOW 키워드 존재"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:07",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -1,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/cc-webapp/backend/tests/auth_verification_report.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "중복"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "YELLOW 키워드 존재"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:07",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -1,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/cc-webapp/frontend/Attributions.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:11",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/cc-webapp/frontend/README-DEV.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:11",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/cc-webapp/frontend/docs/component-specs.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:14",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/cc-webapp/frontend/docs/development-spec.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:14",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/cc-webapp/frontend/docs/quick-reference.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:14",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/cc-webapp/frontend/docs/tailwind-v4-compatibility.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:14",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/cc-webapp/frontend/utils/README_API_TRACING.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:16",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/data_export/dev-local/README.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "임시"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "YELLOW 키워드 존재"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:17",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -1,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/database/scripts/README.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:17",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/012.통합_프론트엔드_개발_가이드_v2.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:17",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/06_user_journey_en.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:17",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/07-api-endpoints.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:17",
+      "date_inferred": null,
+      "openapi_related": true,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/09-testing-guide-new.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:17",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/09-testing-guide.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "중복"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "YELLOW 키워드 존재"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:17",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -1,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/11_ui_ux_en.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:17",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/12_game_dev_full_checklist_ko.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "중복"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "YELLOW 키워드 존재"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -1,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/2025001.ASYNC_SYNC_ANALYSIS.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "임시"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "YELLOW 키워드 존재"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": "2025-01-01T00:00:00",
+      "openapi_related": false,
+      "score": -1,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/2025002.ENV_SETUP_CODEX.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": "2025-01-01T00:00:00",
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/2025003.ENVIRONMENT_AND_DEPLOYMENT_GUIDE.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": "2025-01-01T00:00:00",
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/2025004.GAME_SERVICE_STRUCTURE.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "중복"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "YELLOW 키워드 존재"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": "2025-01-01T00:00:00",
+      "openapi_related": false,
+      "score": -1,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/2025005.PROJECT_OVERVIEW_SUMMARY.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "중복"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "YELLOW 키워드 존재"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": "2025-01-01T00:00:00",
+      "openapi_related": false,
+      "score": -1,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/2025006.user_segmentation_personalization.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": "2025-01-01T00:00:00",
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/2025007.emotion_feedback_ai_personalization.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "임시"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "YELLOW 키워드 존재"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": "2025-01-01T00:00:00",
+      "openapi_related": false,
+      "score": -1,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/2025008.reward_gacha_mission_optimization.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "임시"
+      ],
+      "green_hits": [
+        "Streak 보상"
+      ],
+      "reasons": [
+        "GREEN & YELLOW 혼재"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": "2025-01-01T00:00:00",
+      "openapi_related": false,
+      "score": 1,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/2025009.user_profitability_analysis.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": "2025-01-01T00:00:00",
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/2025011.frontend_uiux_ops_guide.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "초안"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "YELLOW 키워드 존재"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": "2025-01-01T00:00:00",
+      "openapi_related": false,
+      "score": -1,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/20250623_프론트엔드_종합_개발_가이드.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": "2025-06-23T00:00:00",
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/AI_채팅_UI_가이드.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/BACKUP_FILES_CLEANUP_REPORT.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/CONFIGURATION_STANDARDIZATION_REPORT.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/DATABASE_BACKUP_RESTORE.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/DB_INDEX_AUDIT.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "draft"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "YELLOW 키워드 존재"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -1,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/DEPENDENCY_MANAGEMENT_REPORT.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/FRONTEND_DEV_GUIDE_ENGLISH.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/FRONTEND_IMPROVEMENT_MASTER_REPORT.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "중복"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "YELLOW 키워드 존재"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -1,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/FRONTEND_STRUCTURE_PROGRESS.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/LOCAL_LLM_GUIDE.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/NEXT_TAILWIND_V4_DEVELOPMENT_GUIDE.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/OPERATIONS_HANDBOOK.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/PROJECT_OVERVIEW_SUMMARY.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/ROUTING_SYSTEM_UNIFICATION_REPORT.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/analysis/VIRTUAL_ENVIRONMENT_ANALYSIS.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/api_specification.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": null,
+      "openapi_related": true,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/figma_workflow_checklist.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/frontend_development_checklist.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/단순_초대코드_인증_시스템.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/백엔드_초대코드_인증_변경사항.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/사용자_온보딩_학습_시스템_구현_가이드.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/쉬운_CSS_사용_가이드.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/즉시_실행_개발_가이드.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/컴포넌트_구현_로드맵_v2.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/컴포넌트_체크리스트.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/통합_CSS_Variables_가이드.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/통합_반응형_가이드.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "중복"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "YELLOW 키워드 존재"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -1,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/통합_상태전환_가이드.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/통합_애니메이션_타이밍_가이드.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "중복"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "YELLOW 키워드 존재"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -1,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/통합_컴포넌트_가이드.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "중복"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "YELLOW 키워드 존재"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -1,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/프론트엔드_테스트_상태_보고서.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/docs/프론트엔드_페이지_개발_체크리스트.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:04:18",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/tools/doc_audit/report_summary.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "draft"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "YELLOW 키워드 존재"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-10T08:44:52",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -1,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/개선안.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "중복"
+      ],
+      "green_hits": [
+        "Idempotency"
+      ],
+      "reasons": [
+        "GREEN & YELLOW 혼재"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:55",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 1,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/개선안2.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "임시",
+        "TODO",
+        "미검증",
+        "중복",
+        "정리 필요"
+      ],
+      "green_hits": [
+        "Unified Purchase",
+        "Streak 보상",
+        "overall_max_win",
+        "win_rate"
+      ],
+      "reasons": [
+        "최근/추론 날짜 + GREEN 키워드 ≥2 + RED=0",
+        "GREEN 조건 충족 후 강등: RED>=1 또는 YELLOW>=2"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-10T08:46:48",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 2,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/게임통계_전역동기화_완료.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "중복"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "YELLOW 키워드 존재"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:55",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -1,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/단일화폐.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "중복"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "YELLOW 키워드 존재"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:55",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -1,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/브라우저_검증_로그_가이드.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:55",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/시드계정관리.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:55",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/토큰_관리_통합_패치.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [],
+      "green_hits": [],
+      "reasons": [],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:55",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": 0,
+      "core_hint": false,
+      "foundation_hint": false
+    },
+    {
+      "path": "C:/Users/PC/Downloads/0901/0801-copilot-vscode1756823332829/항목값.md",
+      "status": "YELLOW",
+      "red_hits": [],
+      "yellow_hits": [
+        "정리 필요"
+      ],
+      "green_hits": [],
+      "reasons": [
+        "YELLOW 키워드 존재"
+      ],
+      "suggestions": [
+        "혼재 섹션 정리 및 최신 표준 반영 필요"
+      ],
+      "mtime": "2025-09-09T09:03:55",
+      "date_inferred": null,
+      "openapi_related": false,
+      "score": -1,
+      "core_hint": false,
+      "foundation_hint": false
+    }
+  ]
+}
